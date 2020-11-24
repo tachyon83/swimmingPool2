@@ -37,7 +37,7 @@ var sql_insertValues4 = "insert into pooltable(poolId,poolName,poolAddress,poolP
 var sqls2 = sql_createTable + sql_insertValues1 + sql_insertValues2 + sql_insertValues3 + sql_insertValues4;
 
 var randomWords = "가나다라마바사아자차카타파하";
-var randomOptions = [0, 100, 10, 1, 101, 110, 111, 11]
+var randomOptions = [000, 100, 010, 1, 101, 110, 111, 11]
 
 var randomSz = 8000;
 for (var i = 5; i < randomSz; ++i) {
