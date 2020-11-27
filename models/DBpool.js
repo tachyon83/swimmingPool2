@@ -76,7 +76,7 @@ function db_initSetting() {
 
 async function dbpoolCreater() {
     await db_initSetting();
-    module.exports = await mysql.createPool({
+    return await mysql.createPool({
         host: 'localhost',
         port: 3306,
         user: 'poolmanager',
@@ -86,5 +86,6 @@ async function dbpoolCreater() {
         connectionLimit: 100,
     })
 }
-dbpoolCreater();
-// module.exports = dbpoolCreater();
+module.exports = async () => {
+    return await dbpoolCreater();
+}

@@ -1,16 +1,18 @@
-const dbpool = require('./DBpool')
-console.log(dbpool)
+const dbInit = require('./DBpool')
 
 module.exports = class PoolDao {
     constructor() {
-        this.dbpool = dbpool
-        console.log('pooldao created?!')
+        dbInit().then(pool => {
+            this.dbpool = pool
+            console.log('pooldao class instance created...')
+        })
     }
+
     findDetailById = (id, fn) => {
-        console.log('am i a method?')
-        function sqlHandler() {
+        console.log('this.dbpool', this.dbpool)
+        function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
-                this.dbpool.getConnection((err, conn) => {
+                dbpool.getConnection((err, conn) => {
                     if (err) {
                         if (conn) conn.release();
                         console.log('ERR: getConnection in sqlHandler');
@@ -30,11 +32,17 @@ module.exports = class PoolDao {
                 })
             })
         }
-        async function resultSender() {
-            fn(null, await sqlHandler())
+        async function resultSender(pool) {
+            fn(null, await sqlHandler(pool))
         }
-        resultSender();
+        resultSender(this.dbpool);
     }
+
+    // itemsPerPage등을 세팅 파일로 몰아주기
+    // sqlHandler-resultSender를 then으로 바꿔주기
+    // 함수에 넣어주는 쿼리문과 [?,?]만 달리하여 같은 함수 호출하게 설계하기
+    // req.query에서 [?,?]만들어주는 함수 분리하기
+
     findList = (q, fn) => {
         let checked = '1';
         let itemsPerPage = 4;

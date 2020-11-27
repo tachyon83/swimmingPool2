@@ -16,7 +16,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 passportConfig();
 
-const poolDao = require('./models/PoolDAO')
+const poolDao = new (require('./models/PoolDAO'))
 
 app.set('port', 3000 || process.env.PORT);
 // app.set('views', __dirname + '/views');
