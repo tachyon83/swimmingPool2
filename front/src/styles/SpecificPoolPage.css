@@ -1,0 +1,20 @@
+#specificPoolPageContent {
+  margin: 4em;
+}
+
+#specificPoolPageContent h2 {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+#specificPoolPageContent div {
+  display: flex;
+}
+
+#specificPoolPageContent div img {
+  margin-right: 3em;
+}
+
+#specificPoolPageContent div ul li {
+  margin-bottom: 1em;
+}

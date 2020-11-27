@@ -1,0 +1,19 @@
+#poolQueryForm {
+  margin-right: 4em;
+}
+
+#poolQueryForm #queryFormTop {
+  display: flex;
+}
+
+#poolQueryForm #queryFormTop input {
+  flex: 5;
+}
+
+#poolQueryForm #queryFormTop button {
+  flex: 1;
+}
+
+#poolQueryForm .accordion .card-header {
+  cursor: pointer;
+}
