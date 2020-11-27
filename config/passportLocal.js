@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const MemberTempDAO = require('./models/MemberTempDAO');
+const MemberTempDAO = require('../models/SuperManager');
 const memberTempDAO = new MemberTempDAO();
 
 module.exports = () => {
@@ -14,8 +14,8 @@ module.exports = () => {
         // done(null, id);
     })
     passport.use(new LocalStrategy({
-        usernameField: 'useremail',
-        // passwordField: 'password',
+        usernameField: 'username',
+        passwordField: 'password',
         session: true,
         passReqToCallback: true,
     }, (req, id, pw, done) => {
