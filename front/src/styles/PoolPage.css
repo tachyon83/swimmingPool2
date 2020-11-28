@@ -1,0 +1,23 @@
+#poolPageContent {
+  margin: 4em;
+}
+
+#poolPageSearch {
+  display: flex;
+  margin-top: 4em;
+}
+
+#poolPageSearch form {
+  flex: 1;
+}
+
+#poolPageSearch div {
+  flex: 4;
+}
+
+#pagination-div {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3em;
+}

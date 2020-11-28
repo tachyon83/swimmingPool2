@@ -1,0 +1,18 @@
+.singlePool {
+  display: flex;
+  margin-bottom: 4em;
+}
+
+.singlePool img {
+  margin-right: 3em;
+}
+
+.singlePool .singlePoolIcons svg {
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.singlePool .singlePoolDescription {
+  margin-top: 2em;
+  /* padding: 0; */
+}
