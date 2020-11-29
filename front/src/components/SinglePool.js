@@ -24,7 +24,7 @@ function SinglePool({ pool }) {
     <div className="singlePool">
       <img src={randomImage} alt="Random Image" width="500" />
       <div>
-        <Link
+        {/* <Link
           to={{
             pathname: `/pool/${pool.poolId}`,
             state: {
@@ -39,7 +39,8 @@ function SinglePool({ pool }) {
               poolOutdoor,
             },
           }}
-        >
+        > */}
+        <Link to={`/pool/${pool.poolId}`}>
           <h2>{pool.poolName}</h2>
         </Link>
         <div className="singlePoolIcons">

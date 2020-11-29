@@ -30,6 +30,8 @@ function NavBar({ page }) {
           <Link to="/">
             <Button variant="primary">돌아가기</Button>
           </Link>
+        ) : page === 2 ? (
+          <Button variant="primary">로그아웃</Button>
         ) : (
           <></>
         )}

@@ -3,18 +3,25 @@
 }
 
 #specificPoolPageContent h2 {
-  margin-top: 1.5em;
   margin-bottom: 1em;
 }
 
-#specificPoolPageContent div {
+#specificPoolPageContent2 {
+  width: 70%;
+  margin: auto;
+  padding: 4em 3em;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#specificPoolPageContent2 div {
   display: flex;
 }
 
-#specificPoolPageContent div img {
+#specificPoolPageContent2 div img {
   margin-right: 3em;
 }
 
-#specificPoolPageContent div ul li {
+#specificPoolPageContent2 div ul li {
   margin-bottom: 1em;
 }
