@@ -10,9 +10,9 @@ module.exports = class PoolDao {
         })
     }
 
+    // arrow function is needed to have an access to this.dbpool
     findDetailById = (id, fn) => {
         let sqlHandler = () => {
-            // function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
                 this.dbpool.getConnection((err, conn) => {
                     if (err) {
@@ -78,7 +78,6 @@ module.exports = class PoolDao {
         var sql_select_totalCount = "select count(*) as cnt from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=?;"
         var sql_select = "select * from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=? order by poolId limit ?,?;"
         let sqlHandler = () => {
-            // function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
                 this.dbpool.getConnection((err, conn) => {
                     if (err) {
