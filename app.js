@@ -21,51 +21,11 @@ app.use(cors());
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json())
 
-let poolRouter = require('./routes/pool')
-// const poolDao = new (require('./models/PoolDAO'))
-// console.log(poolRouter)
-
-// router.post('/login/attempt', passport.authenticate('local', {
-//     failureRedirect: '/login',
-//     // failureMessage:false,
-// }), (req, res) => {
-//     console.log('authentication complete - success!')
-//     req.session.save(function () {
-//         console.log(req.session.passport)
-//         res.redirect('/');
-//     })
-// })
+const poolRouter = require('./routes/pool')
+const loginRouter = require('./routes/login')
 
 app.use('/pool', poolRouter)
-// router.route('/pool', poolRouter)
-
-// router.route('/pool/:id')
-//     .get((req, res) => {
-//         if (!req.query.searchWord) {
-//             poolDao.findDetailById(req.params.id, (err, result) => {
-//                 if (err) res.status(500);
-//                 res.json(result);
-//             })
-//         } else {
-//             poolDao.findList(req.query, (err, result) => {
-//                 if (err) res.status(500);
-//                 res.json(result);
-//             })
-//         }
-//     })
-//     .post((req, res) => {
-//     })
-//     .put((req, res) => {
-//     })
-//     .delete((req, res) => {
-//     })
-
-// router.route('/logout').get((req, res) => {
-//     req.logout();
-//     req.session.save(function () {
-//         res.redirect('/');
-//     })
-// })
+app.use('/login', loginRouter)
 
 // app.use('/', router);
 const server = http.createServer(app);

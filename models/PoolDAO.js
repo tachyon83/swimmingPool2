@@ -33,8 +33,8 @@ module.exports = class PoolDao {
                 })
             })
         }
-        async function resultSender(pool) {
-            fn(null, await sqlHandler(pool))
+        async function resultSender(dbpool) {
+            fn(null, await sqlHandler(dbpool))
         }
         resultSender(this.dbpool);
     }
@@ -65,13 +65,20 @@ module.exports = class PoolDao {
         let poolOpentime = q.poolOpentime;
 
         // child,woman,disabled는 AND연산으로 확인
-        let poolOption = q.poolForChild + q.poolForWoman + q.poolForDisabled;
+        let poolOptionArray = [
+            q.poolForDisabled,
+            q.poolForWoman,
+            q.poolForChild,
+        ]
+        let poolOption = 0
+        for (let i in poolOptionArray) if (poolOptionArray[i] == checked) poolOption |= (1 << i);
+        // let poolOption = q.poolForChild + q.poolForWoman + q.poolForDisabled;
 
         var sql_select_totalCount = "select count(*) as cnt from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=?;"
         var sql_select = "select * from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=? order by poolId limit ?,?;"
-        function sqlHandler() {
+        function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
-                this.dbpool.getConnection((err, conn) => {
+                dbpool.getConnection((err, conn) => {
                     if (err) {
                         if (conn) conn.release();
                         console.log('ERR: getConnection in sqlHandler');
@@ -106,15 +113,14 @@ module.exports = class PoolDao {
                 })
             })
         }
-        async function resultSender() {
-            let ret = await sqlHandler();
+        async function resultSender(dbpool) {
+            let ret = await sqlHandler(dbpool);
             let result = {
                 'totalCount': ret[0],
                 'pools': ret[1],
             }
-            // console.log(result)
             fn(null, result)
         }
-        resultSender();
+        resultSender(this.dbpool);
     }
 }
