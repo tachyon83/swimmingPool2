@@ -11,9 +11,10 @@ module.exports = class PoolDao {
     }
 
     findDetailById = (id, fn) => {
-        function sqlHandler(dbpool) {
+        let sqlHandler = () => {
+            // function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
-                dbpool.getConnection((err, conn) => {
+                this.dbpool.getConnection((err, conn) => {
                     if (err) {
                         if (conn) conn.release();
                         console.log('ERR: getConnection in sqlHandler');
@@ -33,10 +34,10 @@ module.exports = class PoolDao {
                 })
             })
         }
-        async function resultSender(dbpool) {
-            fn(null, await sqlHandler(dbpool))
+        async function resultSender() {
+            fn(null, await sqlHandler())
         }
-        resultSender(this.dbpool);
+        resultSender();
     }
 
     // itemsPerPage등을 세팅 파일로 몰아주기
@@ -76,9 +77,10 @@ module.exports = class PoolDao {
 
         var sql_select_totalCount = "select count(*) as cnt from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=?;"
         var sql_select = "select * from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=? order by poolId limit ?,?;"
-        function sqlHandler(dbpool) {
+        let sqlHandler = () => {
+            // function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
-                dbpool.getConnection((err, conn) => {
+                this.dbpool.getConnection((err, conn) => {
                     if (err) {
                         if (conn) conn.release();
                         console.log('ERR: getConnection in sqlHandler');
@@ -113,14 +115,14 @@ module.exports = class PoolDao {
                 })
             })
         }
-        async function resultSender(dbpool) {
-            let ret = await sqlHandler(dbpool);
+        async function resultSender() {
+            let ret = await sqlHandler();
             let result = {
                 'totalCount': ret[0],
                 'pools': ret[1],
             }
             fn(null, result)
         }
-        resultSender(this.dbpool);
+        resultSender();
     }
 }
