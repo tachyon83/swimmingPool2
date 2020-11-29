@@ -1,15 +1,16 @@
-const dbInit = require('./DBpool')
+const dbCreate = require('./dbPoolCreator')
 
 module.exports = class PoolDao {
     constructor() {
-        dbInit().then(pool => {
+        dbCreate().then(pool => {
             this.dbpool = pool
-            console.log('pooldao class instance created...')
+            console.log('poolDao class instance and its dbPool created...')
+            // console.log('dbPool:')
+            // console.log(this.dbpool)
         })
     }
 
     findDetailById = (id, fn) => {
-        console.log('this.dbpool', this.dbpool)
         function sqlHandler(dbpool) {
             return new Promise((resolve, reject) => {
                 dbpool.getConnection((err, conn) => {

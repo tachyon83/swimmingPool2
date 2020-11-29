@@ -7,4 +7,5 @@ module.exports = {
     user: 'poolmanager',
     password: '1234',
     database: 'pooldb',
+    connectionLimit: 100,
 }

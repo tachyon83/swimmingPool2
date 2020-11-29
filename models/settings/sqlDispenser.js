@@ -1,4 +1,4 @@
-const dbSetting = require('./DBconnectionSettings')
+const dbSetting = require('./dbConnectionSettings')
 
 let sql_createUser = "create user if not exists " + dbSetting.user + " identified by '" + dbSetting.password + "';";
 let sql_grantPrivileges = "grant all privileges on " + dbSetting.database + ".* to '" + dbSetting.user + "'@'%';";
@@ -14,6 +14,22 @@ let sql_insertValues2 = "insert into pooltable(poolId,poolName,poolAddress,poolP
 let sql_insertValues3 = "insert into pooltable(poolId,poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) select * from (select 3 as poolId,'건강미 센터' as poolName,'대구 용산동' as poolAddress,'010-3333-3333' as poolPhone,18 as poolTypeMask,0 as poolOpentime,110 as poolOption) as tmp where not exists(select poolName from pooltable where poolName = '건강미 센터') limit 1;";
 let sql_insertValues4 = "insert into pooltable(poolId,poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) select * from (select 4 as poolId,'앗차거 호텔' as poolName,'부산 부전동' as poolAddress,'010-4444-4444' as poolPhone,7 as poolTypeMask,0 as poolOpentime,1 as poolOption) as tmp where not exists(select poolName from pooltable where poolName = '앗차거 호텔') limit 1;";
 let sqls2 = sql_createTable + sql_insertValues1 + sql_insertValues2 + sql_insertValues3 + sql_insertValues4;
+
+let randomWords = "가나다라마바사아자차카타파하";
+let randomSz = 8000;
+for (let i = 5; i < randomSz; ++i) {
+    let poolNameRandom = "";
+    for (var charCnt = 0; charCnt < 3; ++charCnt)poolNameRandom += randomWords[parseInt(Math.random() * 14)];
+    let poolPhoneRandom = "010-" + poolNameRandom + "-0000";
+    poolNameRandom = "'" + poolNameRandom + "'";
+    poolPhoneRandom = "'" + poolPhoneRandom + "'";
+    let poolMaskRandom = parseInt(Math.random() * 31) + 1
+    let openTimeRandom = parseInt(Math.random() * 2)
+    let optionRandom = parseInt(Math.random() * (1 << 3))
+    let sql_insertValuesRandom = "insert into pooltable(poolId,poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) select * from (select " + i + " as poolId," + poolNameRandom + " as poolName," + poolNameRandom + " as poolAddress," + poolPhoneRandom + " as poolPhone," + poolMaskRandom + " as poolTypeMask," + openTimeRandom + " as poolOpentime," + optionRandom + " as poolOption) as tmp where not exists(select poolId from pooltable where poolId = " + i + ") limit 1;";
+    // console.log(sql_insertValuesRandom)
+    sqls2 += sql_insertValuesRandom;
+}
 
 // '%' vs 'localhost'
 
