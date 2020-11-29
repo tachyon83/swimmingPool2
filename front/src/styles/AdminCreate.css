@@ -1,0 +1,25 @@
+#adminCreateForm {
+  /* width: 90%; */
+  margin: auto;
+  margin-bottom: 4em;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: rgba(151, 151, 163, 0.2) 0px 7px 29px 0px;
+}
+
+#adminCreateForm #adminCreateFormTop {
+  display: flex;
+}
+
+#adminCreateForm #adminCreateFormTop .form-control {
+  flex: 9;
+  margin-right: 2em;
+}
+
+#adminCreateForm #adminCreateFormTop button {
+  flex: 1;
+}
+
+#adminCreateForm .accordion .card-header {
+  cursor: pointer;
+}

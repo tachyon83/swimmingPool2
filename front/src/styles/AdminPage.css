@@ -1,0 +1,15 @@
+#adminPageContent {
+  margin: 4em;
+}
+
+#adminPageSearch {
+  display: flex;
+}
+
+#adminPageSearch form {
+  flex: 1;
+}
+
+#adminPageSearch div {
+  flex: 4;
+}

@@ -1,0 +1,19 @@
+#adminQueryForm {
+  margin-right: 4em;
+}
+
+#adminQueryForm #adminQueryFormTop {
+  display: flex;
+}
+
+#adminQueryForm #adminQueryFormTop input {
+  flex: 5;
+}
+
+#adminQueryForm #adminQueryFormTop button {
+  flex: 1;
+}
+
+#adminQueryForm .accordion .card-header {
+  cursor: pointer;
+}
