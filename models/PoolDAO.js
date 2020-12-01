@@ -136,6 +136,65 @@ class PoolDao {
         })
     }
 
+    showAdminBoard = fn => {
+        let sql_adminBoard = 'select count(*) from pooltable where 16&poolTypeMask=16'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 8&poolTypeMask=8'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 4&poolTypeMask=4'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 2&poolTypeMask=2'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 1&poolTypeMask=1'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 4&poolOption=4'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 2&poolOption=2'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 1&poolOption=1'
+        sql_adminBoard += ';'
+
+        let boardItemNames = [
+            'poolCount',
+            'publicCount',
+            'privateCount',
+            'hotelCount',
+            'indoorCount',
+            'outdoorCount',
+            'childCount',
+            'womanCount',
+            'disabledCount',
+        ]
+
+        let sqlHandler = () => {
+            return new Promise((resolve, reject) => {
+                this.dbpool.getConnection((err, conn) => {
+                    if (err) {
+                        if (conn) conn.release();
+                        console.log('ERR: getConnection in sqlHandler');
+                        fn(err, null);
+                        return;
+                    }
+                    conn.query(sql_adminBoard, (err, rows, fields) => {
+                        conn.release();
+                        if (err) {
+                            reject(err);
+                            fn(err, null);
+                            return;
+                        }
+                        let ret = {}
+                        for (let i in rows) ret[boardItemNames[i]] = Object.values(rows[i])[0]
+                        resolve(ret);
+                    })
+                })
+            })
+        }
+        async function resultSender() {
+            fn(null, await sqlHandler())
+        }
+        resultSender();
+    }
+
     // arrow function is needed to have an access to this.dbpool
     findDetailById = (id, fn) => {
         let sqlHandler = () => {
@@ -202,8 +261,8 @@ class PoolDao {
         for (let i in poolOptionArray) if (poolOptionArray[i] == checked) poolOption |= (1 << i);
         // let poolOption = q.poolForChild + q.poolForWoman + q.poolForDisabled;
 
-        var sql_select_totalCount = "select count(*) as cnt from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=?;"
-        var sql_select = "select * from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and poolOption=? order by poolId limit ?,?;"
+        var sql_select_totalCount = "select count(*) as cnt from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and (poolOption&?)=?;"
+        var sql_select = "select * from pooltable where (poolName like ? or poolAddress like ?) and (poolTypeMask&?)=poolTypeMask and (poolOpentime&?)=? and (poolOption&?)=? order by poolId limit ?,?;"
         let sqlHandler = () => {
             return new Promise((resolve, reject) => {
                 this.dbpool.getConnection((err, conn) => {
@@ -213,7 +272,7 @@ class PoolDao {
                         fn(err, null);
                         return;
                     }
-                    conn.query(sql_select_totalCount, [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption], (error, rows, fields) => {
+                    conn.query(sql_select_totalCount, [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, poolOption], (error, rows, fields) => {
                         if (err) {
                             if (conn) conn.release();
                             reject(err);
@@ -223,7 +282,7 @@ class PoolDao {
                         let ret = [];
                         ret.push(rows[0].cnt);
                         // conn.query(sql_select, [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, (pageNumber - 1) * itemsPerPage, (pageNumber - 1) * itemsPerPage + itemsPerPage], (error, rows, fields) => {
-                        conn.query(sql_select, [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, (pageNumber - 1) * itemsPerPage, itemsPerPage], (error, rows, fields) => {
+                        conn.query(sql_select, [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, poolOption, (pageNumber - 1) * itemsPerPage, itemsPerPage], (error, rows, fields) => {
                             conn.release();
                             if (err) {
                                 reject(err);

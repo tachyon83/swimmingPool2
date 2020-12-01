@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const memberTempDAO = new (require('../models/ManagerDAO'))
+const memberTempDAO = new (require('../models/MemberDAO'))
 
 module.exports = () => {
     passport.serializeUser((member, done) => {
