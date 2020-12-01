@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import SinglePool from "./SinglePool";
 
-function ListPool({ queryResults }) {
+function ListPool({ show, queryResults, id, page }) {
   const pools = queryResults.pools;
 
   return (
     <>
       {queryResults.totalCount == 0 ? (
-        <div>검색 결과가 없습니다. </div>
+        <div className={show ? "" : "displayNone"} id={id}>
+          검색 결과가 없습니다.{" "}
+        </div>
       ) : (
-        <div>
+        <div className={show ? "" : "displayNone"} id={id}>
           {pools ? (
-            pools.map((pool) => <SinglePool key={pool.poolId} pool={pool} />)
+            pools.map((pool) => (
+              <SinglePool key={pool.poolId} pool={pool} page={page} />
+            ))
           ) : (
             <p>Loading...</p>
           )}
