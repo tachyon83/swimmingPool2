@@ -24,11 +24,9 @@ app.use((req, res, next) => {
     next()
 })
 
-const poolRouter = require('./routes/pool')
-const loginRouter = require('./routes/login')
-
-app.use('/pool', poolRouter)
-app.use('/login', loginRouter)
+app.use('/pool', require('./routes/pool'))
+app.use('/login', require('./routes/login'))
+app.use('/admin', require('./routes/admin'))
 
 // // 404 처리 미들웨어
 // app.use(function(req, res, next) {

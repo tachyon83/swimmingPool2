@@ -2,22 +2,18 @@ function Member(id, pw) {
     this.id = id;
     this.pw = pw;
 }
-Member.prototype.toJSON = function () {
+Member.prototype.toJSON = () => {
     return {
         id: this.id,
         pw: this.pw
     }
 }
-const member1 = new Member('hgd@hgd.com', '123456')
-const member2 = new Member('kim@kim.com', '123456')
-
-var members = {
-    [member1.id]: member1.toJSON(),
-    [member2.id]: member2.toJSON()
-}
+const member1 = new Member('supermanager@pool.com', 'abcd1234')
 
 module.exports = class MemberTempDAO {
-    constructor() { }
+    constructor() {
+        // this.members.member1.id=member1.toJSON()
+    }
     findById = (id, cb) => {
         if (members[id] != null) cb(null, members[id]);
         else cb("this ID does not exist", false);
