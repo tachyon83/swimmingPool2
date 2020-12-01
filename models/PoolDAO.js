@@ -137,7 +137,9 @@ class PoolDao {
     }
 
     showAdminBoard = fn => {
-        let sql_adminBoard = 'select count(*) from pooltable where 16&poolTypeMask=16'
+        let sql_adminBoard = 'select count(*) from pooltable'
+        sql_adminBoard += ' union '
+        sql_adminBoard += 'select count(*) from pooltable where 16&poolTypeMask=16'
         sql_adminBoard += ' union '
         sql_adminBoard += 'select count(*) from pooltable where 8&poolTypeMask=8'
         sql_adminBoard += ' union '
