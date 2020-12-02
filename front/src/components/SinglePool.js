@@ -5,14 +5,15 @@ import { FaBaby, FaFemale, FaWheelchair } from "react-icons/fa";
 
 import randomImage from "../styles/random.png";
 
-function SinglePool({ pool }) {
+function SinglePool({ pool, page }) {
   // 전용 수영장
   let poolForChild, poolForWoman, poolForDisabled;
-  [
-    poolForChild,
-    poolForWoman,
-    poolForDisabled,
-  ] = pool.poolOption.toString().split("");
+  let poolOptionMask = pool.poolOption.toString(2).split("");
+  poolOptionMask = [
+    ...Array(3 - poolOptionMask.length).fill("0"),
+    ...poolOptionMask,
+  ];
+  [poolForChild, poolForWoman, poolForDisabled] = poolOptionMask;
 
   // 운영 방식
   let poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor;
@@ -24,23 +25,9 @@ function SinglePool({ pool }) {
     <div className="singlePool">
       <img src={randomImage} alt="Random Image" width="500" />
       <div>
-        {/* <Link
-          to={{
-            pathname: `/pool/${pool.poolId}`,
-            state: {
-              pool,
-              poolForChild,
-              poolForWoman,
-              poolForDisabled,
-              poolPublic,
-              poolPrivate,
-              poolHotel,
-              poolIndoor,
-              poolOutdoor,
-            },
-          }}
-        > */}
-        <Link to={`/pool/${pool.poolId}`}>
+        <Link
+          to={page === 0 ? `/pool/${pool.poolId}` : `/admin/${pool.poolId}`}
+        >
           <h2>{pool.poolName}</h2>
         </Link>
         <div className="singlePoolIcons">
@@ -66,6 +53,9 @@ function SinglePool({ pool }) {
           </li>
           <li>
             <span className="bold">전화 번호: </span> {pool.poolPhone}
+          </li>
+          <li>
+            <span className="bold">위치: </span> {pool.poolAddress}
           </li>
         </ul>
       </div>

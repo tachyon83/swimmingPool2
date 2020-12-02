@@ -1,0 +1,34 @@
+.adminSingleBoard {
+  flex: 1;
+  margin: 1em;
+  padding: 1em;
+}
+
+.adminSingleBoard p {
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+
+.adminSingleBoard p .adminNumber {
+  font-size: 35px;
+  margin-right: 0.3em;
+}
+
+/* Color */
+
+.adminSingleBoard:nth-child(1) {
+  background-color: #578c31;
+}
+
+.adminSingleBoard:nth-child(2) {
+  background-color: #e7323f;
+}
+
+.adminSingleBoard:nth-child(3) {
+  background-color: #5b69c1;
+}
+
+.adminSingleBoard:nth-child(4) {
+  background-color: #ed6c03;
+}

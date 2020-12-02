@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import PoolPage from "./pages/PoolPage";
 import SpecificPoolPage from "./pages/SpecificPoolPage";
 import AdminPage from "./pages/AdminPage";
+import AdminSpecificPoolPage from "./pages/AdminSpecificPoolPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 
@@ -18,7 +19,10 @@ function App() {
           <Route path="/pool/:id" component={SpecificPoolPage} />
           <Route path="/pool" component={PoolPage} />
         </Switch>
-        <Route path="/admin" component={AdminPage} />
+        <Switch>
+          <Route path="/admin/:id" component={AdminSpecificPoolPage} />
+          <Route path="/admin" component={AdminPage} />
+        </Switch>
       </BrowserRouter>
     </div>
   );

@@ -1,19 +1,7 @@
 #adminQueryForm {
-  margin-right: 4em;
-}
-
-#adminQueryForm #adminQueryFormTop {
-  display: flex;
-}
-
-#adminQueryForm #adminQueryFormTop input {
-  flex: 5;
-}
-
-#adminQueryForm #adminQueryFormTop button {
-  flex: 1;
-}
-
-#adminQueryForm .accordion .card-header {
-  cursor: pointer;
+  margin: 1em;
+  margin-bottom: 4em;
+  padding: 2em;
+  border-radius: 10px;
+  background-color: white;
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { useHistory } from "react-router-dom";
@@ -7,15 +8,24 @@ import "../styles/LoginPage.css";
 function LoginPage() {
   let history = useHistory();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Check if email and password is correct
-    // If correct, change to admin page
-    history.push("/admin");
-    // If incorrect, reload & error message
+
+    // axios post request (/login/attempt)
+    const information = {
+      username: username,
+      password: password,
+    };
+
+    axios
+      .post(`http://localhost:3000/login/attempt`, { information })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
   };
 
   return (
@@ -28,8 +38,8 @@ function LoginPage() {
           <Form.Control
             type="email"
             placeholder="이메일 주소를 입력하세요."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
 

@@ -60,7 +60,7 @@ function PoolPage({ location }) {
         </p>
         <div id="poolPageSearch">
           <PoolQuerySearch query={query} />
-          <ListPool queryResults={queryResults} />
+          <ListPool show={true} queryResults={queryResults} page={0} />
         </div>
       </div>
       <div id="pagination-div">

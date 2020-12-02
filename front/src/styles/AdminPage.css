@@ -1,15 +1,32 @@
 #adminPageContent {
-  margin: 4em;
+  background-color: #354047;
+  /* background-color: #161e1d; */
+  padding: 4em;
+  min-height: 100vh;
 }
 
-#adminPageSearch {
+#adminPageButton {
   display: flex;
 }
 
-#adminPageSearch form {
+#adminPageButton button {
+  margin: 1em;
+  padding: 0.5em;
   flex: 1;
+  border: none;
+  background-color: #1f2529;
+  color: white;
+  outline: none;
 }
 
-#adminPageSearch div {
-  flex: 4;
+#adminPageContent #adminList {
+  margin: 1em;
+  margin-bottom: 4em;
+  padding: 2em;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.displayNone {
+  display: none;
 }

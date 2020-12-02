@@ -25,12 +25,15 @@ function SpecificPoolPage({ history, match, location }) {
   let poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor;
 
   if (queryResults.poolName) {
-    [
-      poolForChild,
-      poolForWoman,
-      poolForDisabled,
-    ] = queryResults.poolOption.toString().split("");
+    // poolOptionMask
+    let poolOptionMask = queryResults.poolOption.toString(2).split("");
+    poolOptionMask = [
+      ...Array(3 - poolOptionMask.length).fill("0"),
+      ...poolOptionMask,
+    ];
+    [poolForChild, poolForWoman, poolForDisabled] = poolOptionMask;
 
+    // poolTypeMask
     let poolTypeMask = queryResults.poolTypeMask.toString(2).split("");
     poolTypeMask = [
       ...Array(5 - poolTypeMask.length).fill("0"),
