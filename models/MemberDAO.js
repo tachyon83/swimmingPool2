@@ -1,25 +1,33 @@
+const bcrypt = require('bcrypt');
+const saltRounds = 10
+const username = 'supermanager@pool.com'
+const password = 'abcd1234'
+
 function Member(id, pw) {
     this.id = id;
     this.pw = pw;
 }
-Member.prototype.toJSON = () => {
+Member.prototype.toJson = () => {
     return {
         id: this.id,
-        pw: this.pw
+        pw: this.pw,
     }
 }
-const member1 = new Member('supermanager@pool.com', 'abcd1234')
-
-module.exports = class MemberTempDAO {
-    constructor() {
-        // this.members.member1.id=member1.toJSON()
+Member.prototype.match = (id, pw, fn) => {
+    if (id === this.id) {
+        bcrypt.compare(pw, this.pw, (err, res) => {
+            if (err) return fn(err, null)
+            if (res) return fn(null, this.toJson())
+        })
     }
-    findById = (id, cb) => {
-        if (members[id] != null) cb(null, members[id]);
-        else cb("this ID does not exist", false);
-    }
-    // matchPw = (id, pw, cb) => {
-    //     if (members[id].pw == pw) cb(null, members[id])
-    //     else cb("this PW is incorrect", false);
-    // }
+    return fn(null, false)
 }
+Member.prototype.findById = (id, fn) => {
+    if (id === this.id) return fn(null, this.toJson())
+}
+bcrypt.genSalt(saltRounds).then(salt => {
+    return bcrypt.hash(password, salt)
+}).then(hash => {
+    console.log('supermanger is created. his password: ', hash)
+    module.exports = new Member(username, hash)
+}).catch(err => console.error(err.message))
