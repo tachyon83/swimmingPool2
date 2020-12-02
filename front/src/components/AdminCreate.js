@@ -8,9 +8,10 @@ function AdminCreate({ show }) {
   const [poolAddress, setPoolAddress] = useState("");
   const [poolPhone, setPoolPhone] = useState("");
 
-  const [poolPublic, setPoolPublic] = useState(false);
-  const [poolPrivate, setPoolPrivate] = useState(false);
-  const [poolHotel, setPoolHotel] = useState(false);
+  // const [poolPublic, setPoolPublic] = useState(false);
+  // const [poolPrivate, setPoolPrivate] = useState(false);
+  // const [poolHotel, setPoolHotel] = useState(false);
+  const [poolType, setPoolType] = useState("");
 
   const [poolForChild, setPoolForChild] = useState(false);
   const [poolForWoman, setPoolForWoman] = useState(false);
@@ -25,31 +26,73 @@ function AdminCreate({ show }) {
     e.preventDefault();
     if (poolName === "") {
       alert("수영장 이름을 입력해주세요");
+    } else if (poolType === "") {
+      alert("수영장 운영 방식을 선택해주세요");
+    } else if (!poolIndoor && !poolOutdoor) {
+      alert("수영장 유형을 적어도 하나 선택해주세요");
     } else {
+      // PoolTypeMask (poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor)
+      let poolTypeMask;
+      if (poolType === "public") {
+        poolTypeMask = "100";
+      } else if (poolType === "private") {
+        poolTypeMask = "010";
+      } else if (poolType === "hotel") {
+        poolTypeMask = "001";
+      }
+      if (poolIndoor) {
+        poolTypeMask += "1";
+      } else {
+        poolTypeMask += "0";
+      }
+      if (poolOutdoor) {
+        poolTypeMask += "1";
+      } else {
+        poolTypeMask += "0";
+      }
+
+      // PoolOption (poolForChild, poolForWoman, poolForDisabled)
+      let poolOption = "";
+      if (poolForChild) {
+        poolOption += "1";
+      } else {
+        poolOption += "0";
+      }
+      if (poolForWoman) {
+        poolOption += "1";
+      } else {
+        poolOption += "0";
+      }
+      if (poolForDisabled) {
+        poolOption += "1";
+      } else {
+        poolOption += "0";
+      }
+
+      // Change binary to decimal
+      poolTypeMask = parseInt(poolTypeMask, 2);
+      poolOption = parseInt(poolOption, 2);
+
       alert(
-        `${poolName}, ${poolAddress}, ${poolPhone}, ${poolPublic}, ${poolPrivate}, ${poolHotel}, ${poolForChild}, ${poolForWoman}, ${poolForDisabled}, ${poolIndoor}, ${poolOutdoor}, ${poolOpentime}`
+        `${poolName}, ${poolAddress}, ${poolPhone}, ${poolTypeMask}, ${poolOption}, ${poolOpentime}`
       );
+
+      const information = {
+        poolName,
+        poolAddress,
+        poolPhone,
+        poolTypeMask,
+        poolOption,
+        poolOpentime,
+      };
+
+      // post request
+      axios
+        .post(`http://localhost:3000/admin/pool`, { information })
+        .then((res) => {
+          console.log(res);
+        });
     }
-    const information = {
-      poolName,
-      poolAddress,
-      poolPhone,
-      poolPublic,
-      poolPrivate,
-      poolHotel,
-      poolForChild,
-      poolForWoman,
-      poolForDisabled,
-      poolIndoor,
-      poolOutdoor,
-      poolOpentime,
-    };
-    // post request
-    axios
-      .post(`http://localhost:3000/admin/pool`, { information })
-      .then((res) => {
-        console.log(res);
-      });
   };
 
   return (
@@ -110,20 +153,26 @@ function AdminCreate({ show }) {
               <div className="mb-3">
                 <Form.Check
                   label="공공"
-                  type="checkbox"
+                  value="public"
+                  name="poolType"
+                  type="radio"
                   onChange={(e) => {
-                    setPoolPublic(e.target.checked);
+                    setPoolType(e.target.value);
                   }}
                 />
                 <Form.Check
                   label="사설"
-                  type="checkbox"
-                  onChange={(e) => setPoolPrivate(e.target.checked)}
+                  value="private"
+                  name="poolType"
+                  type="radio"
+                  onChange={(e) => setPoolType(e.target.value)}
                 />
                 <Form.Check
                   label="호텔"
-                  type="checkbox"
-                  onChange={(e) => setPoolHotel(e.target.checked)}
+                  value="hotel"
+                  name="poolType"
+                  type="radio"
+                  onChange={(e) => setPoolType(e.target.value)}
                 />
               </div>
             </Form.Group>
