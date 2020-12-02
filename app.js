@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const passportConfig = require('./config/passportLocal')
+// const passportConfig = require('./config/passportLocal')
 const cors = require('cors');
 // const router = express.Router();
 const app = express();
@@ -15,13 +15,13 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-passportConfig();
+// passportConfig();
 app.set('port', 3000 || process.env.PORT);
 app.use(cors());
 
 app.use((req, res, next) => {
     let t = Date.now()
-    t = t.toString('YYYY MM DD HH mm ss')
+    // t = t.toString('YYYY MM DD HH mm ss')
     console.log('Server Call Time: ', t)
     next()
 })

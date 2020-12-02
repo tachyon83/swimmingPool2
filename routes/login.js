@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router()
 const passport = require('passport');
+const passportConfig = require('../config/passportLocal')
+passportConfig();
 
-router.post('/attempt', passport.authenticate('local', {
+// router.post('/attempt', passport.authenticate('local', {
+router.get('/attempt', passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true,
     // failureMessage:false,
