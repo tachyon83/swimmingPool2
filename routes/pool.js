@@ -11,19 +11,13 @@ router.route('/')
             res.json(result);
         })
     })
+
 router.route('/:id')
     .get((req, res) => {
-        console.log(poolDao.dbpool)
         poolDao.findDetailById(req.params.id, (err, result) => {
             if (err) res.status(500);
             res.json(result);
         })
-    })
-    .post((req, res) => {
-    })
-    .put((req, res) => {
-    })
-    .delete((req, res) => {
     })
 
 module.exports = router
