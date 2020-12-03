@@ -28,82 +28,37 @@ function AdminPage({ location }) {
   if (query.searchWord) {
     let active = parseInt(query.pageNumber);
     let totalPages = Math.ceil(queryResults.totalCount / 4);
-
-    // 첫 페이지로 이동, 전 페이지로 이동
-    if (active !== 1) {
-      items.push(
-        <Pagination.First
-          href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=1`}
-        />
-      );
-      items.push(
-        <Pagination.Prev
-          href={`?searchWord=${query.searchWord}&poolPublic=${
-            query.poolPublic
-          }&poolPrivate=${query.poolPrivate}&poolHotel=${
-            query.poolHotel
-          }&poolForChild=${query.poolForChild}&poolForWoman=${
-            query.poolForWoman
-          }&poolForDisabled=${query.poolForDisabled}&poolIndoor=${
-            query.poolIndoor
-          }&poolOutdoor=${query.poolOutdoor}&poolOpentime=${
-            query.poolOpentime
-          }&pageNumber=${active - 1}`}
-        />
-      );
-    }
-    // 나머지 페이지 (15 이하)
-    if (totalPages <= 15) {
-      for (let number = 1; number <= totalPages; number++) {
+    if (totalPages) {
+      // 첫 페이지로 이동, 전 페이지로 이동
+      if (active !== 1) {
         items.push(
-          <Pagination.Item
-            key={number}
-            active={number == active}
-            href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
-          >
-            {number}
-          </Pagination.Item>
+          <Pagination.First
+            href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=1`}
+          />
+        );
+        items.push(
+          <Pagination.Prev
+            href={`?searchWord=${query.searchWord}&poolPublic=${
+              query.poolPublic
+            }&poolPrivate=${query.poolPrivate}&poolHotel=${
+              query.poolHotel
+            }&poolForChild=${query.poolForChild}&poolForWoman=${
+              query.poolForWoman
+            }&poolForDisabled=${query.poolForDisabled}&poolIndoor=${
+              query.poolIndoor
+            }&poolOutdoor=${query.poolOutdoor}&poolOpentime=${
+              query.poolOpentime
+            }&pageNumber=${active - 1}`}
+          />
         );
       }
-    } else {
-      // 16 페이지 이상
-      if (active <= 4) {
-        // << < 1 2 3 4 5 6 7 > >>
-        for (let number = 1; number <= 7; number++) {
+      // 나머지 페이지 (15 이하)
+      if (totalPages <= 15) {
+        for (let number = 1; number <= totalPages; number++) {
           items.push(
             <Pagination.Item
               key={number}
-              active={number == active}
-              href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
-            >
-              {number}
-            </Pagination.Item>
-          );
-        }
-        items.push(<Pagination.Ellipsis disabled />);
-        items.push(
-          <Pagination.Item
-            href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${totalPages}`}
-          >
-            {totalPages}
-          </Pagination.Item>
-        );
-      } else if (active >= totalPages - 3) {
-        // << < 14 15 16 17 18 19 20 > >>
-        items.push(
-          <Pagination.Item
-            href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=1`}
-          >
-            1
-          </Pagination.Item>
-        );
-        items.push(<Pagination.Ellipsis disabled />);
-
-        for (let number = totalPages - 6; number <= totalPages; number++) {
-          items.push(
-            <Pagination.Item
-              key={number}
-              active={number == active}
+              active={number === active}
               href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
             >
               {number}
@@ -111,37 +66,83 @@ function AdminPage({ location }) {
           );
         }
       } else {
-        // << < 2 3 4 5 6 7 8 > >>
-        // << < 14 15 16 17 18 19 20 > >>
-        items.push(
-          <Pagination.Item
-            href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=1`}
-          >
-            1
-          </Pagination.Item>
-        );
-        items.push(<Pagination.Ellipsis disabled />);
-
-        for (let number = active - 3; number <= active + 3; number++) {
+        // 16 페이지 이상
+        if (active <= 4) {
+          // << < 1 2 3 4 5 6 7 > >>
+          for (let number = 1; number <= 7; number++) {
+            items.push(
+              <Pagination.Item
+                key={number}
+                active={number === active}
+                href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
+              >
+                {number}
+              </Pagination.Item>
+            );
+          }
+          items.push(<Pagination.Ellipsis disabled />);
           items.push(
             <Pagination.Item
-              key={number}
-              active={number == active}
-              href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
+              href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${totalPages}`}
             >
-              {number}
+              {totalPages}
+            </Pagination.Item>
+          );
+        } else if (active >= totalPages - 3) {
+          // << < 14 15 16 17 18 19 20 > >>
+          items.push(
+            <Pagination.Item
+              href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=1`}
+            >
+              1
+            </Pagination.Item>
+          );
+          items.push(<Pagination.Ellipsis disabled />);
+
+          for (let number = totalPages - 6; number <= totalPages; number++) {
+            items.push(
+              <Pagination.Item
+                key={number}
+                active={number === active}
+                href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
+              >
+                {number}
+              </Pagination.Item>
+            );
+          }
+        } else {
+          // << < 2 3 4 5 6 7 8 > >>
+          // << < 14 15 16 17 18 19 20 > >>
+          items.push(
+            <Pagination.Item
+              href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=1`}
+            >
+              1
+            </Pagination.Item>
+          );
+          items.push(<Pagination.Ellipsis disabled />);
+
+          for (let number = active - 3; number <= active + 3; number++) {
+            items.push(
+              <Pagination.Item
+                key={number}
+                active={number === active}
+                href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${number}`}
+              >
+                {number}
+              </Pagination.Item>
+            );
+          }
+
+          items.push(<Pagination.Ellipsis disabled />);
+          items.push(
+            <Pagination.Item
+              href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${totalPages}`}
+            >
+              {totalPages}
             </Pagination.Item>
           );
         }
-
-        items.push(<Pagination.Ellipsis disabled />);
-        items.push(
-          <Pagination.Item
-            href={`?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&pageNumber=${totalPages}`}
-          >
-            {totalPages}
-          </Pagination.Item>
-        );
       }
     }
 
