@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router()
 const poolDao = require('../models/PoolDAO')
 
+router.route('/').get((req, res) => {
+    res.end('finally...')
+})
+
 router.route('/board')
     .get((req, res) => {
+        console.log(req.session.passport)
         poolDao.showAdminBoard((err, result) => {
             if (err) res.status(500);
             res.json(result);
@@ -18,13 +23,13 @@ router.route('/pool')
         })
     })
     .post((req, res) => {
-        poolDao.create(req.body, (err, result) => {
+        poolDao.create(req.body.information, (err, result) => {
             if (err) res.status(500);
             res.json(result);
         })
     })
     .put((req, res) => {
-        poolDao.update(req.body, (err, result) => {
+        poolDao.update(req.body.information, (err, result) => {
             if (err) res.status(500);
             res.json(result)
         })

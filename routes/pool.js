@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router()
-// const poolDao = new (require('../models/PoolDAO'))
 const poolDao = require('../models/PoolDAO')
 
 router.route('/')
