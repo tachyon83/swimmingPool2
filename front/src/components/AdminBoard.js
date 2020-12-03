@@ -30,7 +30,7 @@ function AdminBoard() {
   }, []);
 
   return (
-    <div class="adminBoard">
+    <div className="adminBoard">
       {numbers.map((number, i) => (
         <AdminSingleBoard number={number} key={i} />
       ))}

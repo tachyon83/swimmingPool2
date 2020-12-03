@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Accordion, Card, Form, Button, Col } from "react-bootstrap";
-import FormCheckbox from "./FormCheckbox";
 import "../styles/HomeQuerySearch.css";
 
 function HomeQuerySearch() {
@@ -17,25 +16,17 @@ function HomeQuerySearch() {
   const [poolForWoman, setPoolForWoman] = useState(false);
   const [poolForDisabled, setPoolForDisabled] = useState(false);
 
-  const [poolIndoor, setPoolIndoor] = useState(false);
+  const [poolIndoor, setPoolIndoor] = useState(true);
   const [poolOutdoor, setPoolOutdoor] = useState(false);
 
   const [poolOpentime, setPoolOpentime] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // check if pool name is null
+
     if (searchWord === "") {
       alert("검색어를 입력해주세요");
     } else {
-      // alert(
-      //   `검색어: ${searchWord} \n
-      //   공공: ${poolPublic} / 사설: ${poolPrivate} / 호텔: ${poolHotel} \n
-      //   유아: ${poolForChild} / 여성: ${poolForWoman} / 장애인: ${poolForDisabled} \n
-      //   실내: ${poolIndoor} / 야외: ${poolOutdoor} \n
-      //   자유수영: ${poolOpentime}`
-      // );
-
       history.push({
         pathname: "/pool",
         search: `?searchWord=${searchWord}&poolPublic=${

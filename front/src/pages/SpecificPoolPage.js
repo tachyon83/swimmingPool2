@@ -18,7 +18,7 @@ function SpecificPoolPage({ history, match, location }) {
         setQueryResults(result);
       })
       .catch((response) => console.log("axios result error", response));
-  }, []);
+  }, [poolId]);
 
   // 전용 수영장 / 운영 방식
   let poolForChild, poolForWoman, poolForDisabled;
@@ -56,7 +56,7 @@ function SpecificPoolPage({ history, match, location }) {
         <div id="specificPoolPageContent2">
           <h2 className="bold">{queryResults.poolName}</h2>
           <div>
-            <img src={randomImage} alt="Random Image" width="500" />
+            <img src={randomImage} alt="Random" />
             <ul>
               <li>
                 {poolForChild === "1" ? <FaBaby color="#F4B400" /> : <></>}
@@ -70,7 +70,7 @@ function SpecificPoolPage({ history, match, location }) {
               <li>
                 <span className="bold">운영 방식:</span>{" "}
                 {poolPublic === "1" ? "공공 " : ""}
-                {poolPrivate === "1" ? "사설 " : ""}
+                {poolPrivate === "1" ? "사설" : ""}
                 {poolHotel === "1" ? "호텔" : ""}
               </li>
               <li>

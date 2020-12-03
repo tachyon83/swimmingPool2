@@ -3,7 +3,7 @@ import "../styles/AdminSingleBoard.css";
 
 function AdminSingleBoard({ number }) {
   return (
-    <div class="adminSingleBoard">
+    <div className="adminSingleBoard">
       {number.map((single, i) => (
         <p key={i}>
           <span className="adminNumber">{single[0]}</span> {single[1]}

@@ -1,115 +1,104 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 import { Form, Button, Col, Row } from "react-bootstrap";
-import "../styles/AdminCreate.css";
 
-function AdminCreate({ show }) {
-  let history = useHistory();
+function AdminEditForm({ history, queryResults, poolId }) {
+  const [poolName, setPoolName] = useState(queryResults.poolName);
+  const [poolAddress, setPoolAddress] = useState(queryResults.poolAddress);
+  const [poolPhone, setPoolPhone] = useState(queryResults.poolPhone);
 
-  const [poolName, setPoolName] = useState("");
-  const [poolAddress, setPoolAddress] = useState("");
-  const [poolPhone, setPoolPhone] = useState("");
+  const [poolType, setPoolType] = useState(queryResults.poolType);
 
-  // const [poolPublic, setPoolPublic] = useState(false);
-  // const [poolPrivate, setPoolPrivate] = useState(false);
-  // const [poolHotel, setPoolHotel] = useState(false);
-  const [poolType, setPoolType] = useState("");
+  const [poolIndoor, setPoolIndoor] = useState(queryResults.poolIndoor);
+  const [poolOutdoor, setPoolOutdoor] = useState(queryResults.poolOutdoor);
 
-  const [poolForChild, setPoolForChild] = useState(false);
-  const [poolForWoman, setPoolForWoman] = useState(false);
-  const [poolForDisabled, setPoolForDisabled] = useState(false);
+  const [poolForChild, setPoolForChild] = useState(queryResults.poolForChild);
+  const [poolForWoman, setPoolForWoman] = useState(queryResults.poolForWoman);
+  const [poolForDisabled, setPoolForDisabled] = useState(
+    queryResults.poolForDisabled
+  );
 
-  const [poolIndoor, setPoolIndoor] = useState(false);
-  const [poolOutdoor, setPoolOutdoor] = useState(false);
+  const [poolOpentime, setPoolOpentime] = useState(queryResults.poolOpentime);
 
-  const [poolOpentime, setPoolOpentime] = useState(false);
-
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
-    if (poolName === "") {
-      alert("수영장 이름을 입력해주세요");
-    } else if (poolType === "") {
-      alert("수영장 운영 방식을 선택해주세요");
-    } else if (!poolIndoor && !poolOutdoor) {
-      alert("수영장 유형을 적어도 하나 선택해주세요");
-    } else {
-      // PoolTypeMask (poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor)
-      let poolTypeMask;
-      if (poolType === "public") {
-        poolTypeMask = "100";
-      } else if (poolType === "private") {
-        poolTypeMask = "010";
-      } else if (poolType === "hotel") {
-        poolTypeMask = "001";
+  const handleDelete = () => {
+    console.log("Delete");
+    axios.delete(`http://localhost:3000/admin/pool/${poolId}`).then((res) => {
+      console.log(res);
+      if (res.data.response) {
+        alert("정상 처리 되었습니다. ");
+        history.goBack();
       }
-      if (poolIndoor) {
-        poolTypeMask += "1";
-      } else {
-        poolTypeMask += "0";
-      }
-      if (poolOutdoor) {
-        poolTypeMask += "1";
-      } else {
-        poolTypeMask += "0";
-      }
+    });
+  };
 
-      // PoolOption (poolForChild, poolForWoman, poolForDisabled)
-      let poolOption = "";
-      if (poolForChild) {
-        poolOption += "1";
-      } else {
-        poolOption += "0";
-      }
-      if (poolForWoman) {
-        poolOption += "1";
-      } else {
-        poolOption += "0";
-      }
-      if (poolForDisabled) {
-        poolOption += "1";
-      } else {
-        poolOption += "0";
-      }
+  const handleEdit = () => {
+    console.log("Edit");
 
-      // Change binary to decimal
-      poolTypeMask = parseInt(poolTypeMask, 2);
-      poolOption = parseInt(poolOption, 2);
-
-      // alert(
-      //   `${poolName}, ${poolAddress}, ${poolPhone}, ${poolTypeMask}, ${poolOption}, ${poolOpentime}`
-      // );
-
-      const information = {
-        poolName,
-        poolAddress,
-        poolPhone,
-        poolTypeMask,
-        poolOption,
-        poolOpentime,
-      };
-
-      // post request
-      axios
-        .post(`http://localhost:3000/admin/pool`, { information })
-        .then((res) => {
-          console.log(res);
-          if (res.data.response) {
-            alert("정상 처리 되었습니다. ");
-            history.push({
-              pathname: "/admin",
-            });
-          }
-        });
+    // PoolTypeMask (poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor)
+    let poolTypeMask;
+    if (poolType === "public") {
+      poolTypeMask = "100";
+    } else if (poolType === "private") {
+      poolTypeMask = "010";
+    } else if (poolType === "hotel") {
+      poolTypeMask = "001";
     }
+    if (poolIndoor) {
+      poolTypeMask += "1";
+    } else {
+      poolTypeMask += "0";
+    }
+    if (poolOutdoor) {
+      poolTypeMask += "1";
+    } else {
+      poolTypeMask += "0";
+    }
+
+    // PoolOption (poolForChild, poolForWoman, poolForDisabled)
+    let poolOption = "";
+    if (poolForChild) {
+      poolOption += "1";
+    } else {
+      poolOption += "0";
+    }
+    if (poolForWoman) {
+      poolOption += "1";
+    } else {
+      poolOption += "0";
+    }
+    if (poolForDisabled) {
+      poolOption += "1";
+    } else {
+      poolOption += "0";
+    }
+
+    // Change binary to decimal
+    poolTypeMask = parseInt(poolTypeMask, 2);
+    poolOption = parseInt(poolOption, 2);
+
+    const information = {
+      poolId,
+      poolName,
+      poolAddress,
+      poolPhone,
+      poolTypeMask,
+      poolOption,
+      poolOpentime,
+    };
+    console.log(information);
+
+    axios
+      .put(`http://localhost:3000/admin/pool`, { information })
+      .then((res) => {
+        console.log(res);
+        if (res.data.response) {
+          alert("정상 처리 되었습니다. ");
+        }
+      });
   };
 
   return (
-    <Form
-      id="adminCreateForm"
-      onSubmit={handleCreateSubmit}
-      className={show ? "" : "displayNone"}
-    >
+    <Form id="adminSpecificPoolForm">
       <Form.Group as={Row}>
         <Form.Label column sm={2}>
           수영장 이름
@@ -165,6 +154,7 @@ function AdminCreate({ show }) {
                   value="public"
                   name="poolType"
                   type="radio"
+                  checked={poolType === "public"}
                   onChange={(e) => {
                     setPoolType(e.target.value);
                   }}
@@ -174,14 +164,20 @@ function AdminCreate({ show }) {
                   value="private"
                   name="poolType"
                   type="radio"
-                  onChange={(e) => setPoolType(e.target.value)}
+                  checked={poolType === "private"}
+                  onChange={(e) => {
+                    setPoolType(e.target.value);
+                  }}
                 />
                 <Form.Check
                   label="호텔"
                   value="hotel"
                   name="poolType"
                   type="radio"
-                  onChange={(e) => setPoolType(e.target.value)}
+                  checked={poolType === "hotel"}
+                  onChange={(e) => {
+                    setPoolType(e.target.value);
+                  }}
                 />
               </div>
             </Form.Group>
@@ -191,19 +187,19 @@ function AdminCreate({ show }) {
                 <Form.Check
                   label="유아"
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={poolForChild}
                   onChange={(e) => setPoolForChild(e.target.checked)}
                 />
                 <Form.Check
                   label="여성"
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={poolForWoman}
                   onChange={(e) => setPoolForWoman(e.target.checked)}
                 />
                 <Form.Check
                   label="장애인"
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={poolForDisabled}
                   onChange={(e) => setPoolForDisabled(e.target.checked)}
                 />
               </div>
@@ -214,13 +210,13 @@ function AdminCreate({ show }) {
                 <Form.Check
                   label="실내"
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={poolIndoor}
                   onChange={(e) => setPoolIndoor(e.target.checked)}
                 />
                 <Form.Check
                   label="야외"
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={poolOutdoor}
                   onChange={(e) => setPoolOutdoor(e.target.checked)}
                 />
               </div>
@@ -231,7 +227,7 @@ function AdminCreate({ show }) {
                 <Form.Check
                   label="가능"
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={poolOpentime}
                   onChange={(e) => setPoolOpentime(e.target.checked)}
                 />
               </div>
@@ -241,8 +237,11 @@ function AdminCreate({ show }) {
       </Form.Group>
       <Form.Group as={Row}>
         <Col sm={{ span: 10, offset: 2 }}>
-          <Button variant="primary" type="submit">
-            추가
+          <Button variant="primary" onClick={handleEdit}>
+            수정
+          </Button>
+          <Button variant="primary" onClick={handleDelete}>
+            삭제
           </Button>
         </Col>
       </Form.Group>
@@ -250,4 +249,4 @@ function AdminCreate({ show }) {
   );
 }
 
-export default AdminCreate;
+export default AdminEditForm;

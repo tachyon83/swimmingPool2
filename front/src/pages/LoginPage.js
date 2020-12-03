@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "../components/NavBar";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import "../styles/LoginPage.css";
 
 function LoginPage() {
-  let history = useHistory();
+  // let history = useHistory();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,19 +19,22 @@ function LoginPage() {
       username: username,
       password: password,
     };
+    console.log(information);
 
     axios
-      .post(`http://localhost:3000/login/attempt`, { information })
+      .post(`http://localhost:3000/login/attempt`, information)
       .then((res) => {
         console.log(res);
-        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
   return (
     <>
       <NavBar page={1} />
-      <Form class="mx-auto my-auto" id="loginPageForm" onSubmit={handleSubmit}>
+      <Form id="loginPageForm" onSubmit={handleSubmit}>
         {/* <h4>로그인</h4> */}
         <Form.Group controlId="formBasicEmail">
           <Form.Label>이메일 주소</Form.Label>
