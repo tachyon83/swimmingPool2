@@ -15,13 +15,17 @@ function LoginPage() {
     e.preventDefault();
 
     // axios post request (/login/attempt)
-    const information = {
-      username: username,
-      password: password,
-    };
+    // const information = {
+    //   username: username,
+    //   password: password,
+    // };
 
     axios
-      .post(`http://localhost:3000/login/attempt`, information)
+      // .post(`http://localhost:3000/login/attempt`, information)
+      .post(`http://localhost:3000/login/attempt`, {
+        username: username,
+        password: password,
+      })
       .then((res) => {
         console.log("response!", res);
       })
