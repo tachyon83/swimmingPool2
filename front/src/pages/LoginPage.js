@@ -19,15 +19,14 @@ function LoginPage() {
       username: username,
       password: password,
     };
-    console.log(information);
 
     axios
       .post(`http://localhost:3000/login/attempt`, information)
       .then((res) => {
-        console.log(res);
+        console.log("response!", res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("error!", err);
       });
   };
 
