@@ -33,8 +33,12 @@ const sessionCheckMiddleware = (req, res, next) => {
     // 이게 인증이 안되서 못가는건지...아니면 DB처리하다가 뭔가 잘못되서 오류난건지
 }
 
+const c = (req, res, next) => {
+    console.log('checkpoint');
+    next()
+}
 app.use('/pool', require('./routes/pool'))
-app.use('/login', require('./routes/login'))
+app.use('/login', c, require('./routes/login'))
 app.use('/admin', sessionCheckMiddleware, require('./routes/admin'))
 app.use('/logout', (req, res) => {
     // req.logout();
@@ -50,7 +54,7 @@ app.use('/logout', (req, res) => {
 
 // 404 처리 미들웨어
 app.use(function (req, res, next) {
-    console.log('404')
+    console.log('omg ... 404')
     next(createError(404));
 });
 

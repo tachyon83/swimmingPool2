@@ -7,9 +7,14 @@ const passport = require('passport');
 // const passportConfig = require('../config/passportLocal')
 // passportConfig();
 
-// router.post('/attempt', passport.authenticate('local', {
-router.get('/attempt', passport.authenticate('local', {
-    // failureRedirect: '/login',
+const check = (req, res, next) => {
+    console.log('req.body', req.body);
+    next();
+}
+
+router.post('/attempt', passport.authenticate('local', {
+    // router.get('/attempt', check, passport.authenticate('local', {
+    failureRedirect: '/login',
     failureFlash: true,
     // failureMessage:false,
     // 이거를 프론트에서 어떻게 받는건지는 제가 알아볼게요
