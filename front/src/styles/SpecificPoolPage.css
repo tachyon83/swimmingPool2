@@ -20,8 +20,18 @@
 
 #specificPoolPageContent2 div img {
   margin-right: 3em;
+  max-width: 350px;
+  flex: 1;
+}
+
+#specificPoolPageContent2 div ul {
+  flex: 1;
 }
 
 #specificPoolPageContent2 div ul li {
   margin-bottom: 1em;
+}
+
+#specificPoolPageContent2 div ul li svg {
+  margin-right: 0.5em;
 }

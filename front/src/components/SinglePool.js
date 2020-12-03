@@ -5,7 +5,7 @@ import { FaBaby, FaFemale, FaWheelchair } from "react-icons/fa";
 
 import randomImage from "../styles/random.png";
 
-function SinglePool({ pool, page }) {
+function SinglePool({ pool, page, id }) {
   // 전용 수영장
   let poolForChild, poolForWoman, poolForDisabled;
   let poolOptionMask = pool.poolOption.toString(2).split("");
@@ -23,7 +23,7 @@ function SinglePool({ pool, page }) {
 
   return (
     <div className="singlePool">
-      <img src={randomImage} alt="Random Image" width="500" />
+      <img src={randomImage} alt={`${id}-pool`} width="450" />
       <div>
         <Link
           to={page === 0 ? `/pool/${pool.poolId}` : `/admin/${pool.poolId}`}

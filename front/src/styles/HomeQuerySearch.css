@@ -14,12 +14,13 @@
 }
 
 #homeQueryForm #queryFormTop input {
-  flex: 15;
+  flex: 5;
   margin-right: 1.5em;
 }
 
 #homeQueryForm #queryFormTop button {
   flex: 1;
+  min-width: 3em;
 }
 
 #homeQueryForm .accordion .card-header {

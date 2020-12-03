@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { Accordion, Card, Form, Button, Col } from "react-bootstrap";
-import FormCheckbox from "./FormCheckbox";
 import "../styles/PoolQuerySearch.css";
 
 function PoolQuerySearch({ query }) {
@@ -26,17 +25,10 @@ function PoolQuerySearch({ query }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (searchWord === "") {
       alert("검색어를 입력해주세요");
     } else {
-      // alert(
-      //   `검색어: ${searchWord} \n
-      //   공공: ${poolPublic} / 사설: ${poolPrivate} / 호텔: ${poolHotel} \n
-      //   유아: ${poolForChild} / 여성: ${poolForWoman} / 장애인: ${poolForDisabled} \n
-      //   실내: ${poolIndoor} / 야외: ${poolOutdoor} \n
-      //   자유수영: ${poolOpentime}`
-      // );
-
       history.push({
         pathname: "/pool",
         search: `?searchWord=${searchWord}&poolPublic=${

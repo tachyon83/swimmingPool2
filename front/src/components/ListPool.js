@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SinglePool from "./SinglePool";
 
 function ListPool({ show, queryResults, id, page }) {
@@ -6,7 +6,8 @@ function ListPool({ show, queryResults, id, page }) {
 
   return (
     <>
-      {queryResults.totalCount == 0 ? (
+      {console.log(queryResults)}
+      {queryResults.totalCount === 0 ? (
         <div className={show ? "" : "displayNone"} id={id}>
           검색 결과가 없습니다.{" "}
         </div>
@@ -14,7 +15,12 @@ function ListPool({ show, queryResults, id, page }) {
         <div className={show ? "" : "displayNone"} id={id}>
           {pools ? (
             pools.map((pool) => (
-              <SinglePool key={pool.poolId} pool={pool} page={page} />
+              <SinglePool
+                key={pool.poolId}
+                pool={pool}
+                page={page}
+                id={pool.poolId}
+              />
             ))
           ) : (
             <p>Loading...</p>
