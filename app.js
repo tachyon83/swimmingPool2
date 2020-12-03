@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-// const passportConfig = require('./config/passportLocal')
+const passportConfig = require('./config/passportLocal')
 const cors = require('cors');
 // const router = express.Router();
 const app = express();
@@ -15,20 +15,23 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-// passportConfig();
+passportConfig();
 app.set('port', 3000 || process.env.PORT);
 app.use(cors());
 
 app.use((req, res, next) => {
-    let t = Date.now()
-    // t = t.toString('YYYY MM DD HH mm ss')
-    console.log('Server Call Time: ', t)
+    console.log('Server Call Time: ', Date.now())
     next()
 })
 
+const sessionCheckMiddleware = (req, res, next) => {
+    if (req.session.passport) next()
+    else res.end('not authenticated!')
+}
+
 app.use('/pool', require('./routes/pool'))
 app.use('/login', require('./routes/login'))
-app.use('/admin', require('./routes/admin'))
+app.use('/admin', sessionCheckMiddleware, require('./routes/admin'))
 app.use('/logout', (req, res) => {
     // req.logout();
     // req.session.save(function () {
@@ -43,6 +46,7 @@ app.use('/logout', (req, res) => {
 
 // 404 처리 미들웨어
 app.use(function (req, res, next) {
+    console.log('404')
     next(createError(404));
 });
 
