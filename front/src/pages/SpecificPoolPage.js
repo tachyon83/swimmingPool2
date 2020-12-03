@@ -70,7 +70,7 @@ function SpecificPoolPage({ history, match, location }) {
               <li>
                 <span className="bold">운영 방식:</span>{" "}
                 {poolPublic === "1" ? "공공 " : ""}
-                {poolPrivate === "1" ? "사설" : ""}
+                {poolPrivate === "1" ? "사설 " : ""}
                 {poolHotel === "1" ? "호텔" : ""}
               </li>
               <li>
