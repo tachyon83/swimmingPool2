@@ -14,6 +14,7 @@ app.use(session({
     saveUninitialized: false
 }))
 app.use(passport.initialize());
+// deserialization occurs prior to server call time
 app.use(passport.session());
 passportConfig();
 app.set('port', 3000 || process.env.PORT);
@@ -25,8 +26,11 @@ app.use((req, res, next) => {
 })
 
 const sessionCheckMiddleware = (req, res, next) => {
-    if (req.session.passport) next()
-    else res.end('not authenticated!')
+    console.log(req.session.passport)
+    if (req.session.passport && req.session.passport.id === 'supermanager@pool.com') next()
+    // else res.end('not authenticated!')
+    else res.json({ response: false })
+    // 이게 인증이 안되서 못가는건지...아니면 DB처리하다가 뭔가 잘못되서 오류난건지
 }
 
 app.use('/pool', require('./routes/pool'))
