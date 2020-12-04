@@ -12,10 +12,10 @@ const check = (req, res, next) => {
     next();
 }
 
-router.post('/attempt', passport.authenticate('local', {
+router.post('/attempt', check, passport.authenticate('local', {
     // router.get('/attempt', check, passport.authenticate('local', {
-    failureRedirect: '/login',
-    failureFlash: true,
+    // failureRedirect: '/login',
+    // failureFlash: true,
     // failureMessage:false,
     // 이거를 프론트에서 어떻게 받는건지는 제가 알아볼게요
 }), (req, res) => {
