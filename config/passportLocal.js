@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const memberDAO = require('../models/MemberDAO')
-// console.log('memberDAO', memberDAO)
 
 module.exports = () => {
     passport.serializeUser((member, done) => {
@@ -31,11 +30,11 @@ module.exports = () => {
             console.log('memberDAO.match fn called in passportLocal.js')
             console.log('res in passportlocal, this should be member himself if authenticated', res)
             if (err) {
-                console.log('there should be no error')
-                return done(err, null)
+                console.log('there should be no error but got an error')
+                return done(err)
             }
-            if (!res) return done(null, res, { message: 'wrong id or wrong pw' })
-            return done(null, res)
+            else if (!res) return done(null, false, { message: "wrong id or wrong pw" })
+            else return done(null, res)
         })
     }))
 }
