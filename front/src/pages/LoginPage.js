@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { useHistory } from "react-router-dom";
 import "../styles/LoginPage.css";
+
+// axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+axios.defaults.withCredentials = true;
 
 function LoginPage() {
   let history = useHistory();
@@ -30,14 +35,23 @@ function LoginPage() {
         console.log(res);
         if (res.data.response) {
           history.push("/admin");
+        } else {
+          history.push("/login");
         }
       })
       .catch((err) => {
         console.log(err);
-        alert("틀렸습니다. ");
-        history.push("/login");
       });
   };
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/login`).then((response) => {
+      console.log(response);
+      if (response.data.response) {
+        console.log("is admin");
+      }
+    });
+  }, []);
 
   return (
     <>
