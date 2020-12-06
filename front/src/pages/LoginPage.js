@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "../components/NavBar";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../styles/LoginPage.css";
 
 function LoginPage() {
-  // let history = useHistory();
+  let history = useHistory();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,10 +27,15 @@ function LoginPage() {
         password: password,
       })
       .then((res) => {
-        console.log("response!", res);
+        console.log(res);
+        if (res.data.response) {
+          history.push("/admin");
+        }
       })
       .catch((err) => {
-        console.log("error!", err);
+        console.log(err);
+        alert("틀렸습니다. ");
+        history.push("/login");
       });
   };
 

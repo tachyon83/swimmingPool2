@@ -6,7 +6,6 @@ function ListPool({ show, queryResults, id, page }) {
 
   return (
     <>
-      {console.log(queryResults)}
       {queryResults.totalCount === 0 ? (
         <div className={show ? "" : "displayNone"} id={id}>
           검색 결과가 없습니다.{" "}
