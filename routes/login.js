@@ -12,6 +12,10 @@ const check = (req, res, next) => {
     next();
 }
 
+router.get('/', (req, res) => {
+    res.json({ response: true })
+})
+
 // router.post('/attempt', check, passport.authenticate('local', {
 // router.get('/attempt', check, passport.authenticate('local', {
 //     failureRedirect: '/login/failed',
@@ -36,6 +40,7 @@ router.post('/attempt', check, (req, res, next) => {
             // when using custom callback, need to use req.logIn()
             req.logIn(member, (err) => {
                 if (err) return next(err)
+                res.cookie('username', member.id, { maxAge: 30000 })
                 return res.json({ response: member.id })
             })
         } else {

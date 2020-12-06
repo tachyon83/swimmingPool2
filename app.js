@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require('cookie-parser')
 const passport = require('passport');
 const passportConfig = require('./config/passportLocal')
 const cors = require('cors');
@@ -14,6 +15,7 @@ app.use(session({
     resave: true,
     saveUninitialized: false
 }))
+app.use(cookieParser())
 app.use(passport.initialize());
 // deserialization occurs prior to server call time ??
 app.use(passport.session());
@@ -52,8 +54,9 @@ const c = (req, res, next) => {
     next()
 }
 
+// app.use('/isAuthenticated', require('./routes/isAuthenticated'))
 app.use('/pool', require('./routes/pool'))
-app.use('/login', c, require('./routes/login'))
+app.use('/login', c, sessionCheckMiddleware, require('./routes/login'))
 app.use('/admin', sessionCheckMiddleware, require('./routes/admin'))
 app.use('/logout', (req, res) => {
     // req.logout();
