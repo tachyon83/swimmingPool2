@@ -6,6 +6,10 @@ router.route('/').get((req, res) => {
     res.end('finally...')
 })
 
+router.route('/check').get((req, res) => {
+    res.json({ response: req.session.passport ? true : false })
+})
+
 router.route('/board')
     .get((req, res) => {
         console.log(req.session.passport)

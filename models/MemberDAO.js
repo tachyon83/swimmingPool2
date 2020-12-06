@@ -13,6 +13,12 @@ class MemberDAO {
             console.log('memberDAO instance is created. hashed pw: ', this.pw)
         }).catch(err => console.error(err.message))
     }
+    toJson = () => {
+        return {
+            id: this.id,
+            pw: this.pw,
+        }
+    }
     match = (id, pw, fn) => {
         console.log('id check: ', id, this.id)
         if (id === this.id) {
@@ -20,14 +26,14 @@ class MemberDAO {
             bcrypt.compare(pw, this.pw, (err, res) => {
                 console.log('res in compare', res)
                 if (err) return fn(err, null)
-                if (res) return fn(null, this)
+                if (res) return fn(null, this.toJson())
                 return fn(null, false)
             })
         }
         else return fn(null, false)
     }
     findById = (id, fn) => {
-        if (id === this.id) return fn(null, this)
+        if (id === this.id) return fn(null, this.toJson())
         return fn(null, false)
     }
 }
