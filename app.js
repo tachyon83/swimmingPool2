@@ -21,6 +21,7 @@ app.use(passport.session());
 // deserialization occurs prior to [server call time] ??
 passportConfig();
 app.set('port', process.env.PORT || 3000);
+
 app.use(cors({
     // this origin means the origin of the request, the client side
     // origin: 'http://localhost:3001',
