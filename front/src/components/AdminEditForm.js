@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
+const host = require("../host");
 
 function AdminEditForm({ history, queryResults, poolId }) {
   const [poolName, setPoolName] = useState(queryResults.poolName);
@@ -21,7 +22,7 @@ function AdminEditForm({ history, queryResults, poolId }) {
   const [poolOpentime, setPoolOpentime] = useState(queryResults.poolOpentime);
 
   const handleDelete = () => {
-    axios.delete(`http://localhost:3000/admin/pool/${poolId}`).then((res) => {
+    axios.delete(`${host.server}/admin/pool/${poolId}`).then((res) => {
       if (res.data.response) {
         alert("정상 처리 되었습니다. ");
         history.goBack();
@@ -85,13 +86,11 @@ function AdminEditForm({ history, queryResults, poolId }) {
         poolOpentime,
       };
 
-      axios
-        .put(`http://localhost:3000/admin/pool`, { information })
-        .then((res) => {
-          if (res.data.response) {
-            alert("정상 처리 되었습니다. ");
-          }
-        });
+      axios.put(`${host.server}/admin/pool`, { information }).then((res) => {
+        if (res.data.response) {
+          alert("정상 처리 되었습니다. ");
+        }
+      });
     }
   };
 

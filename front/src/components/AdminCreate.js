@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import "../styles/AdminCreate.css";
+const host = require("../host");
 
 function AdminCreate({ show }) {
   let history = useHistory();
@@ -90,16 +91,14 @@ function AdminCreate({ show }) {
       };
 
       // post request
-      axios
-        .post(`http://localhost:3000/admin/pool`, { information })
-        .then((res) => {
-          if (res.data.response) {
-            alert("정상 처리 되었습니다. ");
-            history.push({
-              pathname: "/admin",
-            });
-          }
-        });
+      axios.post(`${host.server}/admin/pool`, { information }).then((res) => {
+        if (res.data.response) {
+          alert("정상 처리 되었습니다. ");
+          history.push({
+            pathname: "/admin",
+          });
+        }
+      });
     }
   };
 
