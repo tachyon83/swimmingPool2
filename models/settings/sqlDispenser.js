@@ -1,18 +1,46 @@
 const dbSetting = require('./dbConnectionSettings')
 
-let sql_createUser = "create user if not exists " + dbSetting.user + " identified by '" + dbSetting.password + "';";
-let sql_grantPrivileges = "grant all privileges on " + dbSetting.database + ".* to '" + dbSetting.user + "'@'%';";
-let sql_flush = "flush privileges;";
-let sql_alterUser = "alter user " + dbSetting.user + " identified with mysql_native_password by '" + dbSetting.password + "';";
+// '%' vs 'localhost'
+
+let sql_createUser =
+    `create user if not exists ${dbSetting.user}
+    identified by '${dbSetting.password}';`;
+let sql_grantPrivileges =
+    `grant all privileges on ${dbSetting.database}.* 
+    to '${dbSetting.user}'@'%';`;
+let sql_flush =
+    `flush privileges;`;
+let sql_alterUser =
+    `alter user ${dbSetting.user} 
+    identified with mysql_native_password 
+    by '${dbSetting.password}';`;
 let sqls1 = sql_createUser + sql_grantPrivileges + sql_flush + sql_alterUser;
 
-let sql_createDB = "create database if not exists " + dbSetting.database + ";";
+let sql_createDB =
+    `create database if not exists ${dbSetting.database};`;
 
-let sql_createTable = "create table if not exists pooltable(poolId int not null auto_increment, poolName varchar(20) not null, poolAddress varchar(60) not null, poolPhone varchar(20),poolTypeMask int,poolOpentime int,poolOption int,primary key(poolId));";
-let sql_insertValues1 = "insert into pooltable(poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) values ('가나다 스포츠','서울 압구정동','010-1111-1111',19,1,5);";
-let sql_insertValues2 = "insert into pooltable(poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) values ('미니미 수영장','대전 둔산동','010-2222-2222',9,1,3);";
-let sql_insertValues3 = "insert into pooltable(poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) values ('건강미 센터','대구 용산동','010-3333-3333',18,0,6);";
-let sql_insertValues4 = "insert into pooltable(poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) values ('앗차거 호텔','부산 부전동','010-4444-4444',7,0,1);";
+let sql_createTable =
+    `create table if not exists 
+    ${dbSetting.tablename}(poolId int not null auto_increment, 
+    poolName varchar(20) not null, poolAddress varchar(60) not null, 
+    poolPhone varchar(20),poolTypeMask int,poolOpentime int,
+    poolOption int,primary key(poolId));`
+let sql_insertValues1 =
+    `insert into ${dbSetting.tablename}(poolName,poolAddress,
+    poolPhone,poolTypeMask,poolOpentime,poolOption) 
+    values ('가나다 스포츠','서울 압구정동','010-1111-1111',17,1,5);`
+let sql_insertValues2 =
+    `insert into ${dbSetting.tablename}(poolName,poolAddress,
+    poolPhone,poolTypeMask,poolOpentime,poolOption) 
+    values ('미니미 수영장','대전 둔산동','010-2222-2222',9,1,3);`
+let sql_insertValues3 =
+    `insert into ${dbSetting.tablename}(poolName,poolAddress,
+    poolPhone,poolTypeMask,poolOpentime,poolOption) 
+    values ('건강미 센터','대구 용산동','010-3333-3333',18,0,6);`
+let sql_insertValues4 =
+    `insert into ${dbSetting.tablename}(poolName,poolAddress,
+    poolPhone,poolTypeMask,poolOpentime,poolOption) 
+    values ('앗차거 호텔','부산 부전동','010-4444-4444',6,0,1);`
 let sqls2 = sql_createTable + sql_insertValues1 + sql_insertValues2 + sql_insertValues3 + sql_insertValues4;
 
 let randomWords = "가나다라마바사아자차카타파하";
@@ -27,12 +55,16 @@ for (let i = 0; i < randomSz; ++i) {
     let poolMaskRandom = poolMaskRandomPossibilities[parseInt(Math.random() * 6)]
     let openTimeRandom = parseInt(Math.random() * 2)
     let optionRandom = parseInt(Math.random() * (1 << 3))
-    let sql_insertValuesRandom = "insert into pooltable(poolName,poolAddress,poolPhone,poolTypeMask,poolOpentime,poolOption) values (" + poolNameRandom + ',' + poolNameRandom + ',' + poolPhoneRandom + ',' + poolMaskRandom + ',' + openTimeRandom + ',' + optionRandom + ');'
-    // console.log(sql_insertValuesRandom)
+
+    let sql_insertValuesRandom =
+        `insert into ${dbSetting.tablename}(poolName,poolAddress,
+        poolPhone,poolTypeMask,poolOpentime,poolOption) 
+        values (${poolNameRandom},${poolNameRandom},
+        ${poolPhoneRandom},${poolMaskRandom},
+        ${openTimeRandom},${optionRandom});`
+
     sqls2 += sql_insertValuesRandom;
 }
-
-// '%' vs 'localhost'
 
 module.exports = {
     initialSetup: sqls1,

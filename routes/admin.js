@@ -2,17 +2,8 @@ const express = require('express');
 const router = express.Router()
 const poolDao = require('../models/PoolDAO')
 
-router.route('/').get((req, res) => {
-    res.end('finally...')
-})
-
-router.route('/check').get((req, res) => {
-    res.json({ response: req.session.passport ? true : false })
-})
-
 router.route('/board')
     .get((req, res) => {
-        console.log(req.session.passport)
         poolDao.showAdminBoard((err, result) => {
             if (err) res.status(500);
             res.json(result);
