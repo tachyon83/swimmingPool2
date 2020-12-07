@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Navbar, Button } from "react-bootstrap";
 import "../styles/NavBar.css";
 import logo from "../styles/otter.png";
 
 function NavBar({ page }) {
+  let history = useHistory();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    async function checkAuthenticated() {
+      const response = await axios.get(`http://localhost:3000/isAuthenticated`);
+      const data = await response.data.response;
+      setIsAdmin(data);
+    }
+    checkAuthenticated();
+  }, []);
+
+  const onLogoutClick = () => {
+    axios
+      .get(`http://localhost:3000/logout`)
+      .then((res) => {
+        if (res.data.response) {
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Navbar>
       <Link to="/">
@@ -23,15 +51,30 @@ function NavBar({ page }) {
       </Link>
       <Navbar.Collapse className="justify-content-end">
         {page === 0 ? (
-          <Link to="/login">
-            <Button variant="primary">로그인</Button>
-          </Link>
+          // Home Page
+          // Not Found Page
+          // Pool Page
+          // Specific Pool Page
+          isAdmin ? (
+            <Button variant="primary" onClick={onLogoutClick}>
+              로그아웃
+            </Button>
+          ) : (
+            <Link to="/login">
+              <Button variant="primary">로그인</Button>
+            </Link>
+          )
         ) : page === 1 ? (
+          // Login Page
           <Link to="/">
             <Button variant="primary">돌아가기</Button>
           </Link>
         ) : page === 2 ? (
-          <Button variant="primary">로그아웃</Button>
+          // Admin Page
+          // Admin Specific Pool Page
+          <Button variant="primary" onClick={onLogoutClick}>
+            로그아웃
+          </Button>
         ) : (
           <></>
         )}

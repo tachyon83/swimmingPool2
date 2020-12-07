@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <>
       <NavBar page={0} />
-      <HomeQuerySearch page={0} />
+      <HomeQuerySearch />
     </>
   );
 }
