@@ -4,9 +4,13 @@ const poolDao = require('../models/PoolDAO')
 
 router.route('/')
     .get((req, res) => {
-        // console.log(req.query)
+        console.log('querystring: ', req.query)
         poolDao.findList(req.query, (err, result) => {
-            if (err) res.status(500);
+            console.log('findlist ?')
+            if (err) {
+                console.error(err)
+                res.status(500);
+            }
             res.json(result);
         })
     })
@@ -14,7 +18,10 @@ router.route('/')
 router.route('/:id')
     .get((req, res) => {
         poolDao.findDetailById(req.params.id, (err, result) => {
-            if (err) res.status(500);
+            if (err) {
+                console.error(err)
+                res.status(500);
+            }
             res.json(result);
         })
     })

@@ -139,8 +139,12 @@ class PoolDao {
         let totalCountParams = [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, poolOption]
         let selectParams = [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, poolOption, (pageNumber - 1) * paginationSettings.itemsPerPage, paginationSettings.itemsPerPage]
 
+        console.log('findList')
+
         this.sqlHandler(sqls.sql_select_totalCount, totalCountParams, fn).then(cntRes => {
+            console.log('first sqlhandler')
             this.sqlHandler(sqls.sql_select, selectParams, fn).then(rows => {
+                console.log('second sqlhandler')
                 let pools = []
                 for (let row of rows) {
                     pools.push(row)
