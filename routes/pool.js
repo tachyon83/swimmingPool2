@@ -4,7 +4,7 @@ const poolDao = require('../models/PoolDAO')
 
 router.route('/')
     .get((req, res) => {
-        console.log(req.query)
+        // console.log(req.query)
         poolDao.findList(req.query, (err, result) => {
             if (err) res.status(500);
             res.json(result);

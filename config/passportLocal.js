@@ -4,11 +4,11 @@ const memberDAO = require('../models/MemberDAO')
 
 module.exports = () => {
     passport.serializeUser((member, done) => {
-        console.log('inside serialize', member)
+        console.log('serializing...', member)
         if (member) done(null, member.id);
     })
     passport.deserializeUser((id, done) => {
-        console.log('checking if this session is authenticated..?')
+        console.log('deserializing...')
         memberDAO.findById(id, (err, member) => {
             if (err) return done(err, null)
             if (!member) {
@@ -25,10 +25,8 @@ module.exports = () => {
         session: true,
         passReqToCallback: true,
     }, (req, id, pw, done) => {
-        console.log('inside passport local')
+        console.log('about to call memberDAO.match in passportLocal...')
         memberDAO.match(id, pw, (err, res) => {
-            console.log('memberDAO.match fn process finished in passportLocal.js')
-            console.log('res in passportlocal, this should be member himself if authenticated', res)
             if (err) {
                 console.log('there should be no error but got an error')
                 return done(err)
