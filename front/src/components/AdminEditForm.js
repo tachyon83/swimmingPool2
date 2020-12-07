@@ -21,9 +21,7 @@ function AdminEditForm({ history, queryResults, poolId }) {
   const [poolOpentime, setPoolOpentime] = useState(queryResults.poolOpentime);
 
   const handleDelete = () => {
-    console.log("Delete");
     axios.delete(`http://localhost:3000/admin/pool/${poolId}`).then((res) => {
-      console.log(res);
       if (res.data.response) {
         alert("정상 처리 되었습니다. ");
         history.goBack();
@@ -32,69 +30,69 @@ function AdminEditForm({ history, queryResults, poolId }) {
   };
 
   const handleEdit = () => {
-    console.log("Edit");
-
-    // PoolTypeMask (poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor)
-    let poolTypeMask;
-    if (poolType === "public") {
-      poolTypeMask = "100";
-    } else if (poolType === "private") {
-      poolTypeMask = "010";
-    } else if (poolType === "hotel") {
-      poolTypeMask = "001";
-    }
-    if (poolIndoor) {
-      poolTypeMask += "1";
+    if (!poolIndoor && !poolOutdoor) {
+      alert("유형을 선택해주세요.");
     } else {
-      poolTypeMask += "0";
-    }
-    if (poolOutdoor) {
-      poolTypeMask += "1";
-    } else {
-      poolTypeMask += "0";
-    }
+      // PoolTypeMask (poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor)
+      let poolTypeMask;
+      if (poolType === "public") {
+        poolTypeMask = "100";
+      } else if (poolType === "private") {
+        poolTypeMask = "010";
+      } else if (poolType === "hotel") {
+        poolTypeMask = "001";
+      }
+      if (poolIndoor) {
+        poolTypeMask += "1";
+      } else {
+        poolTypeMask += "0";
+      }
+      if (poolOutdoor) {
+        poolTypeMask += "1";
+      } else {
+        poolTypeMask += "0";
+      }
 
-    // PoolOption (poolForChild, poolForWoman, poolForDisabled)
-    let poolOption = "";
-    if (poolForChild) {
-      poolOption += "1";
-    } else {
-      poolOption += "0";
-    }
-    if (poolForWoman) {
-      poolOption += "1";
-    } else {
-      poolOption += "0";
-    }
-    if (poolForDisabled) {
-      poolOption += "1";
-    } else {
-      poolOption += "0";
-    }
+      // PoolOption (poolForChild, poolForWoman, poolForDisabled)
+      let poolOption = "";
+      if (poolForChild) {
+        poolOption += "1";
+      } else {
+        poolOption += "0";
+      }
+      if (poolForWoman) {
+        poolOption += "1";
+      } else {
+        poolOption += "0";
+      }
+      if (poolForDisabled) {
+        poolOption += "1";
+      } else {
+        poolOption += "0";
+      }
 
-    // Change binary to decimal
-    poolTypeMask = parseInt(poolTypeMask, 2);
-    poolOption = parseInt(poolOption, 2);
+      // Change binary to decimal
+      poolTypeMask = parseInt(poolTypeMask, 2);
+      poolOption = parseInt(poolOption, 2);
 
-    const information = {
-      poolId,
-      poolName,
-      poolAddress,
-      poolPhone,
-      poolTypeMask,
-      poolOption,
-      poolOpentime,
-    };
-    console.log(information);
+      const information = {
+        poolId,
+        poolName,
+        poolAddress,
+        poolPhone,
+        poolTypeMask,
+        poolOption,
+        poolOpentime,
+      };
 
-    axios
-      .put(`http://localhost:3000/admin/pool`, { information })
-      .then((res) => {
-        console.log(res);
-        if (res.data.response) {
-          alert("정상 처리 되었습니다. ");
-        }
-      });
+      axios
+        .put(`http://localhost:3000/admin/pool`, { information })
+        .then((res) => {
+          if (res.data.response) {
+            alert("정상 처리 되었습니다. ");
+          }
+        });
+    }
   };
 
   return (
