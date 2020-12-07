@@ -19,7 +19,10 @@ router.route('/pool')
     })
     .post((req, res) => {
         poolDao.create(req.body.information, (err, result) => {
-            if (err) res.status(500);
+            if (err) {
+                console.error(err)
+                res.status(500);
+            }
             res.json(result);
         })
     })
@@ -31,6 +34,12 @@ router.route('/pool')
     })
 
 router.route('/pool/:id')
+    .get((req, res) => {
+        poolDao.findDetailById(req.params.id, (err, result) => {
+            if (err) res.status(500);
+            res.json(result);
+        })
+    })
     .delete((req, res) => {
         poolDao.delete(req.params.id, (err, result) => {
             if (err) res.status(500);
