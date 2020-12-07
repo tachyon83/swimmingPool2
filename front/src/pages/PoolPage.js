@@ -10,7 +10,6 @@ import "../styles/PoolPage.css";
 function PoolPage({ location }) {
   const query = queryString.parse(location.search);
   // query = poolForChild, poolForDisabled, searchWord... information
-  console.log(query);
   const [queryResults, setQueryResults] = useState({});
 
   useEffect(() => {
@@ -23,7 +22,7 @@ function PoolPage({ location }) {
         setQueryResults(result);
         // console.log("Axios result", result);
       })
-      .catch((response) => console.log("Axios result error", response));
+      .catch((response) => console.log(response));
   }, []);
 
   // Pagination

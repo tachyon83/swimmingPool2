@@ -17,7 +17,7 @@ function SpecificPoolPage({ history, match, location }) {
         const result = response.data;
         setQueryResults(result);
       })
-      .catch((response) => console.log("axios result error", response));
+      .catch((response) => console.log(response));
   }, [poolId]);
 
   // 전용 수영장 / 운영 방식
