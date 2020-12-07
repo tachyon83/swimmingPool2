@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import AdminSingleBoard from "./AdminSingleBoard";
 import axios from "axios";
 import "../styles/AdminBoard.css";
+const host = require("../host");
 
 function AdminBoard() {
   const [numbers, setNumbers] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/admin/board`).then((response) => {
+    axios.get(`${host.server}/admin/board`).then((response) => {
       let data = response.data;
       setNumbers([
         [[data.poolCount, "수영장"]],

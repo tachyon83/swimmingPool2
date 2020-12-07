@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import Loading from "../components/Loading";
 import Redirecting from "../components/Redirecting";
 import "../styles/LoginPage.css";
+const host = require("../host");
 
 // axios.defaults.baseURL = 'http://localhost:3000';
 // axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
@@ -28,8 +29,7 @@ function LoginPage() {
       alert("비밀번호를 입력해주세요. ");
     } else {
       axios
-        // .post(`http://localhost:3000/login/attempt`, information)
-        .post(`http://localhost:3000/login/attempt`, {
+        .post(`${host.server}/login/attempt`, {
           username: username,
           password: password,
         })
@@ -52,7 +52,7 @@ function LoginPage() {
 
   useEffect(() => {
     async function checkAuthenticated() {
-      const response = await axios.get(`http://localhost:3000/isAuthenticated`);
+      const response = await axios.get(`${host.server}/isAuthenticated`);
       const data = await response.data.response;
       if (data) {
         history.push("/admin");

@@ -11,6 +11,7 @@ import Loading from "../components/Loading";
 import Redirecting from "../components/Redirecting";
 import Pagination from "react-bootstrap/Pagination";
 import "../styles/AdminPage.css";
+const host = require("../host");
 
 function AdminPage({ location }) {
   let history = useHistory();
@@ -191,7 +192,7 @@ function AdminPage({ location }) {
     if (query.searchWord) {
       axios
         .get(
-          `http://localhost:3000/admin/pool?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&pageNumber=${query.pageNumber}`
+          `${host.server}/admin/pool?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&pageNumber=${query.pageNumber}`
         )
         .then((response) => {
           const result = response.data;
@@ -200,7 +201,7 @@ function AdminPage({ location }) {
     }
 
     async function checkAuthenticated() {
-      const response = await axios.get(`http://localhost:3000/isAuthenticated`);
+      const response = await axios.get(`${host.server}/isAuthenticated`);
       const data = await response.data.response;
       if (!data) {
         history.push("/login");

@@ -6,6 +6,7 @@ import PoolQuerySearch from "../components/PoolQuerySearch";
 import ListPool from "../components/ListPool";
 import Pagination from "react-bootstrap/Pagination";
 import "../styles/PoolPage.css";
+const host = require("../host");
 
 function PoolPage({ location }) {
   const query = queryString.parse(location.search);
@@ -13,9 +14,12 @@ function PoolPage({ location }) {
   const [queryResults, setQueryResults] = useState({});
 
   useEffect(() => {
+    console.log(
+      `${host.server}/pool?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&pageNumber=${query.pageNumber}`
+    );
     axios
       .get(
-        `http://localhost:3000/pool?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&pageNumber=${query.pageNumber}`
+        `${host.server}/pool?searchWord=${query.searchWord}&poolPublic=${query.poolPublic}&poolPrivate=${query.poolPrivate}&poolHotel=${query.poolHotel}&poolIndoor=${query.poolIndoor}&poolOutdoor=${query.poolOutdoor}&poolOpentime=${query.poolOpentime}&poolForChild=${query.poolForChild}&poolForWoman=${query.poolForWoman}&poolForDisabled=${query.poolForDisabled}&pageNumber=${query.pageNumber}`
       )
       .then((response) => {
         const result = response.data;

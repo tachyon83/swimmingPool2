@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Navbar, Button } from "react-bootstrap";
 import "../styles/NavBar.css";
 import logo from "../styles/otter.png";
+const host = require("../host");
 
 function NavBar({ page }) {
   let history = useHistory();
@@ -13,7 +14,7 @@ function NavBar({ page }) {
 
   useEffect(() => {
     async function checkAuthenticated() {
-      const response = await axios.get(`http://localhost:3000/isAuthenticated`);
+      const response = await axios.get(`${host.server}/isAuthenticated`);
       const data = await response.data.response;
       setIsAdmin(data);
     }
@@ -22,7 +23,7 @@ function NavBar({ page }) {
 
   const onLogoutClick = () => {
     axios
-      .get(`http://localhost:3000/logout`)
+      .get(`${host.server}/logout`)
       .then((res) => {
         if (res.data.response) {
           history.push("/");

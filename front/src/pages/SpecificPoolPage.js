@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import "../styles/SpecificPoolPage.css";
 import randomImage from "../styles/random.png";
 import { FaBaby, FaFemale, FaWheelchair } from "react-icons/fa";
+const host = require("../host");
 
 function SpecificPoolPage({ history, match, location }) {
   const poolId = match.params.id;
@@ -12,7 +13,7 @@ function SpecificPoolPage({ history, match, location }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/pool/${poolId}`)
+      .get(`${host.server}/pool/${poolId}`)
       .then((response) => {
         const result = response.data;
         setQueryResults(result);

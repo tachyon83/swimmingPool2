@@ -7,6 +7,7 @@ import Loading from "../components/Loading";
 import Redirecting from "../components/Redirecting";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import "../styles/AdminSpecificPoolPage.css";
+const host = require("../host");
 
 function AdminSpecificPoolPage({ history, match }) {
   let historyUse = useHistory();
@@ -18,7 +19,7 @@ function AdminSpecificPoolPage({ history, match }) {
 
   useEffect(() => {
     async function checkAuthenticated() {
-      const response = await axios.get(`http://localhost:3000/isAuthenticated`);
+      const response = await axios.get(`${host.server}/isAuthenticated`);
       const data = await response.data.response;
       if (!data) {
         historyUse.push("/login");
@@ -28,7 +29,7 @@ function AdminSpecificPoolPage({ history, match }) {
     checkAuthenticated();
 
     axios
-      .get(`http://localhost:3000/pool/${poolId}`)
+      .get(`${host.server}/pool/${poolId}`)
       .then((response) => {
         const result = response.data;
         // PoolTypeMask (poolPublic, poolPrivate, poolHotel, poolIndoor, poolOutdoor)
