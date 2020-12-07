@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import queryString from "query-string";
+import { useHistory } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import AdminBoard from "../components/AdminBoard";
 import AdminCreate from "../components/AdminCreate";
 import AdminQuerySearch from "../components/AdminQuerySearch";
 import ListPool from "../components/ListPool";
+import Loading from "../components/Loading";
+import Redirecting from "../components/Redirecting";
 import Pagination from "react-bootstrap/Pagination";
 import "../styles/AdminPage.css";
 
 function AdminPage({ location }) {
+  let history = useHistory();
+
   // Query
   const query = queryString.parse(location.search);
   // console.log(query);
@@ -181,6 +186,8 @@ function AdminPage({ location }) {
     setShowSearchForm(!showSearchForm);
   };
 
+  const [isAdmin, setIsAdmin] = useState(undefined);
+
   useEffect(() => {
     if (query.searchWord) {
       axios
@@ -192,33 +199,49 @@ function AdminPage({ location }) {
           setQueryResults(result);
         });
     }
+
+    async function checkAuthenticated() {
+      const response = await axios.get(`http://localhost:3000/isAuthenticated`);
+      const data = await response.data.response;
+      if (!data) {
+        history.push("/login");
+      }
+      setIsAdmin(data);
+    }
+    checkAuthenticated();
   }, []);
 
-  return (
-    <>
-      <NavBar page={2} />
-      <div id="adminPageContent">
-        <AdminBoard />
-        <div id="adminPageButton">
-          <button onClick={addButtonClick}>수영장 추가</button>
-          <button onClick={searchButtonClick}>수영장 검색</button>
-        </div>
-        <div>
-          <AdminCreate show={showCreateForm} />
-          <AdminQuerySearch show={showSearchForm} query={query} />
-          <ListPool
-            show={query.searchWord ? true : false}
-            queryResults={queryResults}
-            id="adminList"
-            page={1}
-          />
-          <div id="pagination-div">
-            <Pagination>{items}</Pagination>
+  if (isAdmin === undefined) {
+    return <Loading />;
+  } else if (!isAdmin) {
+    return <Redirecting />;
+  } else {
+    return (
+      <>
+        <NavBar page={2} />
+        <div id="adminPageContent">
+          <AdminBoard />
+          <div id="adminPageButton">
+            <button onClick={addButtonClick}>수영장 추가</button>
+            <button onClick={searchButtonClick}>수영장 검색</button>
+          </div>
+          <div>
+            <AdminCreate show={showCreateForm} />
+            <AdminQuerySearch show={showSearchForm} query={query} />
+            <ListPool
+              show={query.searchWord ? true : false}
+              queryResults={queryResults}
+              id="adminList"
+              page={1}
+            />
+            <div id="pagination-div">
+              <Pagination>{items}</Pagination>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 export default AdminPage;

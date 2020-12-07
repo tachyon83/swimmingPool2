@@ -13,7 +13,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter forceRefresh={true}>
-        {/* <BrowserRouter> */}
         <Switch>
           <Route path="/" component={HomePage} exact />
           <Route path="/login" component={LoginPage} />
