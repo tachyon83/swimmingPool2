@@ -45,12 +45,16 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/login`).then((response) => {
-      console.log(response);
-      if (response.data.response) {
-        console.log("is admin");
-      }
-    });
+    axios
+      .get(`http://localhost:3000/isAuthenticated`)
+      .then((response) => {
+        if (response.data.response) {
+          history.push("/admin");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
