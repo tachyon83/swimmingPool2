@@ -89,7 +89,7 @@ let sql_select =
     order by poolId limit ?,?;`
 
 let sql_delete =
-    `delete from pooltable where poolId = ?;`
+    `delete from ${dbSetting.tablename} where poolId = ?;`
 
 let sql_update =
     `update ${dbSetting.tablename} set poolName=?,
@@ -97,15 +97,15 @@ let sql_update =
     poolOption=? where poolId = ?;`
 
 let sql_adminBoard =
-    `select count(*) from pooltable union 
-    select count(*) from pooltable where 16&poolTypeMask=16 union 
-    select count(*) from pooltable where 8&poolTypeMask=8 union 
-    select count(*) from pooltable where 4&poolTypeMask=4 union 
-    select count(*) from pooltable where 2&poolTypeMask=2 union 
-    select count(*) from pooltable where 1&poolTypeMask=1 union 
-    select count(*) from pooltable where 4&poolOption=4 union 
-    select count(*) from pooltable where 2&poolOption=2 union 
-    select count(*) from pooltable where 1&poolOption=1;`
+    `select count(*) from ${dbSetting.tablename} union 
+    select count(*) from ${dbSetting.tablename} where 16&poolTypeMask=16 union 
+    select count(*) from ${dbSetting.tablename} where 8&poolTypeMask=8 union 
+    select count(*) from ${dbSetting.tablename} where 4&poolTypeMask=4 union 
+    select count(*) from ${dbSetting.tablename} where 2&poolTypeMask=2 union 
+    select count(*) from ${dbSetting.tablename} where 1&poolTypeMask=1 union 
+    select count(*) from ${dbSetting.tablename} where 4&poolOption=4 union 
+    select count(*) from ${dbSetting.tablename} where 2&poolOption=2 union 
+    select count(*) from ${dbSetting.tablename} where 1&poolOption=1;`
 
 module.exports = {
     initialSetup: sqls1,
