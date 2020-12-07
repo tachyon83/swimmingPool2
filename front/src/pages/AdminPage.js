@@ -17,7 +17,6 @@ function AdminPage({ location }) {
 
   // Query
   const query = queryString.parse(location.search);
-  // console.log(query);
 
   // Query Results
   const [queryResults, setQueryResults] = useState({});

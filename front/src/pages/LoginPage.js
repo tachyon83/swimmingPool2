@@ -18,32 +18,34 @@ function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [showErrorMsg, setShowErrorMsg] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // axios post request (/login/attempt)
-    // const information = {
-    //   username: username,
-    //   password: password,
-    // };
-
-    axios
-      // .post(`http://localhost:3000/login/attempt`, information)
-      .post(`http://localhost:3000/login/attempt`, {
-        username: username,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.response) {
-          history.push("/admin");
-        } else {
-          history.push("/login");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (username === "") {
+      alert("이메일 주소를 입력해주세요.");
+    } else if (password === "") {
+      alert("비밀번호를 입력해주세요. ");
+    } else {
+      axios
+        // .post(`http://localhost:3000/login/attempt`, information)
+        .post(`http://localhost:3000/login/attempt`, {
+          username: username,
+          password: password,
+        })
+        .then((res) => {
+          if (res.data.response) {
+            history.push("/admin");
+          } else {
+            setUsername("");
+            setPassword("");
+            setShowErrorMsg(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const [isAdmin, setIsAdmin] = useState(undefined);
@@ -89,6 +91,10 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
+
+          <p className={showErrorMsg ? "" : "hidden"} id="loginErrorMsg">
+            아이디 혹은 비밀번호가 잘못되었습니다.
+          </p>
 
           <br />
 

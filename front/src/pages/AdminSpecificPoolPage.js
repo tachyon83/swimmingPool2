@@ -69,7 +69,7 @@ function AdminSpecificPoolPage({ history, match }) {
           poolOpentime: result.poolOpentime === 1,
         });
       })
-      .catch((response) => console.log("axios result error", response));
+      .catch((response) => console.log(response));
   }, []);
 
   if (isAdmin === undefined) {
@@ -83,7 +83,11 @@ function AdminSpecificPoolPage({ history, match }) {
         <div id="adminPageContent">
           <Button onClick={history.goBack}>돌아가기</Button>
           {queryResults.poolName ? (
-            <AdminEditForm queryResults={queryResults} poolId={poolId} />
+            <AdminEditForm
+              history={history}
+              queryResults={queryResults}
+              poolId={poolId}
+            />
           ) : (
             <Form id="adminSpecificPoolForm">
               <Form.Group as={Row}>

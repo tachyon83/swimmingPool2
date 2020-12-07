@@ -93,7 +93,6 @@ function AdminCreate({ show }) {
       axios
         .post(`http://localhost:3000/admin/pool`, { information })
         .then((res) => {
-          console.log(res);
           if (res.data.response) {
             alert("정상 처리 되었습니다. ");
             history.push({

@@ -11,3 +11,7 @@ body {
   text-align: center;
   margin-top: 17em;
 }
+
+.hidden {
+  display: none;
+}
