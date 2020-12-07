@@ -30,7 +30,7 @@ class PoolDao {
                         reject(err)
                         return;
                     }
-                    console.log('db process result', rows)
+                    // console.log('db process result', rows)
                     resolve(rows)
                 })
             })
@@ -134,17 +134,13 @@ class PoolDao {
             q.poolForChild,
         ]
         let poolOption = 0
-        for (let i in poolOptionArray) if (poolOptionArray[i] == checked) poolOption |= (1 << i);
+        for (let i in poolOptionArray) if (poolOptionArray[i] == paginationSettings.checked) poolOption |= (1 << i);
 
         let totalCountParams = [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, poolOption]
         let selectParams = [searchWord, searchWord, poolTypeMask, poolOpentime, poolOpentime, poolOption, poolOption, (pageNumber - 1) * paginationSettings.itemsPerPage, paginationSettings.itemsPerPage]
 
-        console.log('findList')
-
         this.sqlHandler(sqls.sql_select_totalCount, totalCountParams, fn).then(cntRes => {
-            console.log('first sqlhandler')
             this.sqlHandler(sqls.sql_select, selectParams, fn).then(rows => {
-                console.log('second sqlhandler')
                 let pools = []
                 for (let row of rows) {
                     pools.push(row)

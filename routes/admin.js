@@ -6,7 +6,7 @@ router.route('/board')
     .get((req, res) => {
         poolDao.showAdminBoard((err, result) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 res.status(500);
             }
             res.json(result);
@@ -17,7 +17,7 @@ router.route('/pool')
     .get((req, res) => {
         poolDao.findList(req.query, (err, result) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 res.status(500);
             }
             res.json(result);
@@ -26,7 +26,7 @@ router.route('/pool')
     .post((req, res) => {
         poolDao.create(req.body.information, (err, result) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 res.status(500);
             }
             res.json(result);
@@ -35,7 +35,7 @@ router.route('/pool')
     .put((req, res) => {
         poolDao.update(req.body.information, (err, result) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 res.status(500);
             }
             res.json(result);
@@ -46,7 +46,7 @@ router.route('/pool/:id')
     .get((req, res) => {
         poolDao.findDetailById(req.params.id, (err, result) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 res.status(500);
             }
             res.json(result);
@@ -55,7 +55,7 @@ router.route('/pool/:id')
     .delete((req, res) => {
         poolDao.delete(req.params.id, (err, result) => {
             if (err) {
-                console.error(err)
+                console.log(err)
                 res.status(500);
             }
             res.json(result);
