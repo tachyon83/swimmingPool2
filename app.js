@@ -18,7 +18,9 @@ app.use(session({
     cookie: {
         // httpOnly: false,
         // path: corsSettings.origin,
-        sameSite: 'lax',
+        // sameSite: 'lax',
+        sameSite: 'none',
+        secure: true,
     }
 }))
 // app.use(cookieParser())
