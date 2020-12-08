@@ -16,7 +16,8 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: {
-        path: corsSettings.origin,
+        httpOnly: false,
+        // path: corsSettings.origin,
         sameSite: 'lax',
     }
 }))
