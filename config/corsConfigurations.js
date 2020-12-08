@@ -1,3 +1,3 @@
 module.exports = {
-    origin: 'https://otters-pool.herokuapp.com',
+    origin: 'http://otters-pool.herokuapp.com',
 }
