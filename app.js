@@ -34,7 +34,7 @@ app.use(cors({
     // this origin means the origin of the request, the client side
     // origin: 'http://localhost:3001',
     // origin: true,
-    origin: corsSettings.origin,
+    origin: [corsSettings.origin_https, corsSettings.origin_http],
     credentials: true,
     preflightContinue: true,
 }));
