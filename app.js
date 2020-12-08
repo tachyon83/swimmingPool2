@@ -31,17 +31,17 @@ app.use(passport.session());
 passportConfig();
 app.set('port', process.env.PORT || 3000);
 
-// app.use(cors({
-//     // this origin means the origin of the request, the client side
-//     // origin: 'http://localhost:3001',
-//     origin: true,
-//     // origin: [corsSettings.origin_https, corsSettings.origin_http],
-//     credentials: true,
-//     // preflightContinue: true,
-// }));
-app.use(cors(corsSettings))
-app.options('/login', cors(corsSettings))
-app.options('/isAuthenticated', cors(corsSettings))
+app.use(cors({
+    // this origin means the origin of the request, the client side
+    // origin: 'http://localhost:3001',
+    origin: true,
+    // origin: [corsSettings.origin_https, corsSettings.origin_http],
+    credentials: true,
+    preflightContinue: true,
+}));
+// app.use(cors(corsSettings))
+// app.options('/login', cors(corsSettings))
+// app.options('/isAuthenticated', cors(corsSettings))
 app.use(flash())
 
 app.use((req, res, next) => {
