@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node dbSetup_heroku.js",
+    "heroku-postbuild": "npm install --only=dev && npm install && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
