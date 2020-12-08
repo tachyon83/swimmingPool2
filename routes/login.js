@@ -20,14 +20,14 @@ const passport = require('passport');
 router.post('/attempt', (req, res, next) => {
     passport.authenticate('local', {
         session: true,
-    }), (err, member, info) => {
+    }), ((err, member, info) => {
         if (err) return next(err);
         if (member) {
             // when using custom callback, need to use req.logIn()
             req.logIn(member, (err) => {
                 if (err) return next(err)
                 // res.cookie('username', member.id, { maxAge: 5 * 60 * 1000 })
-                // res.header('Access-Control-Allow-Credentials', 'true');
+                res.header('Access-Control-Allow-Credentials', 'true');
                 console.log('login successful')
                 return res.json({ response: member.id })
             })
