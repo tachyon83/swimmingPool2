@@ -29,7 +29,7 @@ app.use(cors({
     // origin: true,
     origin: corsSettings.origin,
     credentials: true,
-    // preflightContinue: true,
+    preflightContinue: true,
 }));
 app.use(flash())
 
