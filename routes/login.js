@@ -18,7 +18,9 @@ const passport = require('passport');
 
 // server side and client side are separate. better use custom callback
 router.post('/attempt', (req, res, next) => {
-    passport.authenticate('local', (err, member, info) => {
+    passport.authenticate('local', {
+        session: true,
+    }), (err, member, info) => {
         if (err) return next(err);
         if (member) {
             // when using custom callback, need to use req.logIn()
