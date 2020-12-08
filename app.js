@@ -41,6 +41,7 @@ app.set('port', process.env.PORT || 3000);
 // }));
 app.use(cors(corsSettings))
 app.options('/login', cors(corsSettings))
+app.options('/isAuthenticated', cors(corsSettings))
 app.use(flash())
 
 app.use((req, res, next) => {
