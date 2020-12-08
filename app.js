@@ -16,13 +16,13 @@ app.use(session({
     // resave: true,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        // httpOnly: false,
-        // path: corsSettings.origin,
-        // sameSite: 'lax',
-        sameSite: 'none',
-        // secure: true,
-    }
+    // cookie: {
+    //     // httpOnly: false,
+    //     // path: corsSettings.origin,
+    //     // sameSite: 'lax',
+    //     sameSite: 'none',
+    //     // secure: true,
+    // }
 }))
 // app.use(cookieParser())
 app.use(passport.initialize());
