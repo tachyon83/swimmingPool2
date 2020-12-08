@@ -44,7 +44,7 @@ let sql_insertValues4 =
 let sqls2 = sql_createTable + sql_insertValues1 + sql_insertValues2 + sql_insertValues3 + sql_insertValues4;
 
 let randomWords = "가나다라마바사아자차카타파하";
-let randomSz = 8000;
+let randomSz = 50;
 let poolMaskRandomPossibilities = [18, 17, 10, 9, 6, 5]
 for (let i = 0; i < randomSz; ++i) {
     let poolNameRandom = "";
