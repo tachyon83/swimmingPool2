@@ -26,6 +26,7 @@ module.exports = () => {
         passReqToCallback: true,
     }, (req, id, pw, done) => {
         console.log('about to call memberDAO.match in passportLocal...')
+        console.log('pw: ', pw)
         memberDAO.match(id, pw, (err, res) => {
             if (err) {
                 console.log('there should be no error but got an error')

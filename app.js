@@ -27,6 +27,7 @@ app.use(cors({
     // origin: 'http://localhost:3001',
     origin: true,
     credentials: true,
+    preflightContinue: true,
 }));
 app.use(flash())
 
