@@ -5,6 +5,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportConfig = require('./config/passportLocal')
 const cors = require('cors');
+const corsSettings = require('./config/corsConfigurations')
 const flash = require('connect-flash')
 // const router = express.Router();
 const app = express();
@@ -25,7 +26,8 @@ app.set('port', process.env.PORT || 3000);
 app.use(cors({
     // this origin means the origin of the request, the client side
     // origin: 'http://localhost:3001',
-    origin: true,
+    // origin: true,
+    origin: corsSettings.origin,
     credentials: true,
     preflightContinue: true,
 }));
