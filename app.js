@@ -13,15 +13,16 @@ const app = express();
 app.use(express.json())
 app.use(session({
     secret: 'secret secretary',
-    resave: true,
+    // resave: true,
+    resave: false,
     saveUninitialized: false,
-    cookie: {
-        // httpOnly: false,
-        // path: corsSettings.origin,
-        // sameSite: 'lax',
-        sameSite: 'none',
-        secure: true,
-    }
+    // cookie: {
+    //     // httpOnly: false,
+    //     // path: corsSettings.origin,
+    //     // sameSite: 'lax',
+    //     // sameSite: 'none',
+    //     // secure: true,
+    // }
 }))
 // app.use(cookieParser())
 app.use(passport.initialize());
