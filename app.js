@@ -14,7 +14,10 @@ app.use(express.json())
 app.use(session({
     secret: 'secret secretary',
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        sameSite: 'lax',
+    }
 }))
 // app.use(cookieParser())
 app.use(passport.initialize());
