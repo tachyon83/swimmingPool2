@@ -5,13 +5,13 @@ module.exports = {
         resave: false,
         saveUninitialized: false,
         proxy: true,
-        // cookie: {
-        //     httpOnly: true,
-        //     // path: corsSettings.origin,
-        //     // sameSite: 'lax',
-        //     sameSite: 'none',
-        //     secure: true,
-        // }
+        cookie: {
+            httpOnly: true,
+            // path: corsSettings.origin,
+            // sameSite: 'lax',
+            sameSite: 'none',
+            secure: true,
+        }
     },
     corsSettings: {
         // origin_https: 'https://otters-pool.herokuapp.com',
@@ -19,6 +19,6 @@ module.exports = {
         origin: true,
         // origin: 'https://otters-pool.herokuapp.com',
         credentials: true,
-        preflightContinue: true,
+        // preflightContinue: true,
     },
 }
