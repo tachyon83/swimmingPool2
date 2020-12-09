@@ -94,7 +94,13 @@ class PoolDao {
         ]
         this.sqlHandler(sqls.sql_adminBoard, null, fn).then(rows => {
             let ret = {}
-            for (let i in rows) ret[boardItemNames[i]] = Object.values(rows[i])[0]
+            for (let i in rows) {
+                ret[boardItemNames[i]] = Object.values(rows[i])[0]
+                console.log(i)
+                console.log(rows[i])
+                console.log(Object.values(rows[i]))
+                console.log(Object.values(rows[i])[0])
+            }
             fn(null, ret)
         }).catch(err => {
             fn(err, null)
