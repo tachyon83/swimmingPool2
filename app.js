@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json())
 app.use(session(webSettings.sessionSettings))
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(passport.initialize());
 app.use(passport.session());
 // deserialization occurs prior to [server call time] ??

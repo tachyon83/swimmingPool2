@@ -30,6 +30,7 @@ router.post('/attempt', (req, res, next) => {
                 console.log('there should be a cookie here?', res.header)
                 console.log('or here?', res.header.cookies)
                 console.log('or here?', res.header.cookie)
+                console.log('maybe here?', req.cookies)
                 console.log('login successful')
                 return res.json({ response: member.id })
             })
