@@ -11,6 +11,7 @@ module.exports = {
             // sameSite: 'lax',
             sameSite: 'none',
             secure: true,
+            maxAge: 1000 * 60 * 10,
         }
     },
     corsSettings: {
