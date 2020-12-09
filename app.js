@@ -5,25 +5,13 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport');
 const passportConfig = require('./config/passportLocal')
 const cors = require('cors');
-const corsSettings = require('./config/corsConfigurations')
+const webSettings = require('./config/webSettings')
 const flash = require('connect-flash')
 // const router = express.Router();
 const app = express();
 
 app.use(express.json())
-app.use(session({
-    secret: 'secret secretary',
-    // resave: true,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        // path: corsSettings.origin,
-        // sameSite: 'lax',
-        sameSite: 'none',
-        secure: true,
-    }
-}))
+app.use(session(webSettings.sessionSettings))
 // app.use(cookieParser())
 app.use(passport.initialize());
 app.use(passport.session());
@@ -37,11 +25,11 @@ app.set('port', process.env.PORT || 3000);
 //     origin: true,
 //     // origin: [corsSettings.origin_https, corsSettings.origin_http],
 //     credentials: true,
-//     preflightContinue: true,
+//     // preflightContinue: true,
 // }));
-app.use(cors(corsSettings))
-app.options('/login', cors(corsSettings))
-app.options('/isAuthenticated', cors(corsSettings))
+app.use(cors(webSettings.corsSettings))
+// app.options('/login', cors(webSettings.corsSettings))
+// app.options('/isAuthenticated', cors(webSettings.corsSettings))
 app.use(flash())
 
 app.use((req, res, next) => {
