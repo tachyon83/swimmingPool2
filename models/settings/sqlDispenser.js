@@ -97,14 +97,14 @@ let sql_update =
     poolOption=? where poolId = ?;`
 
 let sql_adminBoard =
-    `select count(*) from ${dbSetting.tablename} union 
-    select count(*) from ${dbSetting.tablename} where 16&poolTypeMask=16 union 
-    select count(*) from ${dbSetting.tablename} where 8&poolTypeMask=8 union 
-    select count(*) from ${dbSetting.tablename} where 4&poolTypeMask=4 union 
-    select count(*) from ${dbSetting.tablename} where 2&poolTypeMask=2 union 
-    select count(*) from ${dbSetting.tablename} where 1&poolTypeMask=1 union 
-    select count(*) from ${dbSetting.tablename} where 4&poolOption=4 union 
-    select count(*) from ${dbSetting.tablename} where 2&poolOption=2 union 
+    `select count(*) from ${dbSetting.tablename} union all
+    select count(*) from ${dbSetting.tablename} where 16&poolTypeMask=16 union all
+    select count(*) from ${dbSetting.tablename} where 8&poolTypeMask=8 union all
+    select count(*) from ${dbSetting.tablename} where 4&poolTypeMask=4 union all
+    select count(*) from ${dbSetting.tablename} where 2&poolTypeMask=2 union all
+    select count(*) from ${dbSetting.tablename} where 1&poolTypeMask=1 union all
+    select count(*) from ${dbSetting.tablename} where 4&poolOption=4 union all
+    select count(*) from ${dbSetting.tablename} where 2&poolOption=2 union all
     select count(*) from ${dbSetting.tablename} where 1&poolOption=1;`
 
 module.exports = {
