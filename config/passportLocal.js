@@ -4,7 +4,7 @@ const memberDAO = require('../models/MemberDAO')
 
 module.exports = () => {
     passport.serializeUser((member, done) => {
-        console.log('serializing...', member)
+        console.log('serializing...')
         if (member) done(null, member.id);
     })
     passport.deserializeUser((id, done) => {
@@ -25,8 +25,6 @@ module.exports = () => {
         session: true,
         passReqToCallback: true,
     }, (req, id, pw, done) => {
-        console.log('about to call memberDAO.match in passportLocal...')
-        console.log('pw: ', pw)
         memberDAO.match(id, pw, (err, res) => {
             if (err) {
                 console.log('there should be no error but got an error')

@@ -22,9 +22,7 @@ class MemberDAO {
     match = (id, pw, fn) => {
         console.log('id check: ', id, this.id)
         if (id === this.id) {
-            console.log('id matched now checking pw...')
             bcrypt.compare(pw, this.pw, (err, res) => {
-                console.log('res in compare', res)
                 if (err) return fn(err, null)
                 if (res) return fn(null, this.toJson())
                 return fn(null, false)
