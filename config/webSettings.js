@@ -19,6 +19,6 @@ module.exports = {
         origin: true,
         // origin: 'https://otters-pool.herokuapp.com',
         credentials: true,
-        // preflightContinue: true,
+        preflightContinue: true,
     },
 }

@@ -27,10 +27,6 @@ router.post('/attempt', (req, res, next) => {
                 if (err) return next(err)
                 // res.cookie('username', member.id, { maxAge: 5 * 60 * 1000 })
                 // res.header('Access-Control-Allow-Credentials', 'true');
-                console.log('there should be a cookie here?', res.header)
-                console.log('or here?', res.header.cookies)
-                console.log('or here?', res.header.cookie)
-                console.log('maybe here?', req.cookies)
                 console.log('login successful')
                 return res.json({ response: member.id })
             })
