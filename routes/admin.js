@@ -9,6 +9,7 @@ router.route('/board')
                 console.log(err)
                 res.status(500);
             }
+            console.log('admin board res', result)
             res.json(result);
         })
     })
