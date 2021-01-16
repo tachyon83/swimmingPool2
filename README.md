@@ -52,10 +52,10 @@ Node Express Passport Mysql
 
 
 > a
->   > b-1
->   > b-2
-> a-2
->   >   > c
+>   > b-1  
+>   > b-2  
+> a-2  
+>   >   > c  
 
 
 app.js  
