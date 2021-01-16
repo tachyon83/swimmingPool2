@@ -21,18 +21,6 @@ https://github.com/danakim21
   
     
       
-        
-           
-                
-                    
-                      
-                        
-                          
-                              
-                              
-  
-  
-  
 ## 개요
   
 몇가지 필터를 통해 검색조건을 맞추고,  
@@ -54,17 +42,17 @@ Node Express Passport Mysql
 app.js  
 dbSetup_heroku.js  
 dbSetup.js  
-|- config : 각종 세팅과 passport 로컬 Strategy구현  
-|- models - settings  
-                |- dbConnectionSettings : 데이터베이스 연결 관련 세팅  
-                |- sqlDispenser : SQL 쿼리문 모음  
-          - dbPoolCreator : MySQL연결 Pool 리턴  
-          - MemberDao : 회원 관련 DAO 클래스 구현  
-          - PoolDao : 수영장 정보 관련 DAO 클래스 구현  
-|- routes - admin : 관리자 모드에서만 사용가능한 admin경로로 들어오는 모든 요청 처리  
-          - login : 로그인에 사용  
-          - pool : pool경로로 들어오는 모든 요청 처리  
-          - isAuthenticated : 인증된 사용자인지 확인하는 경로  
+>   config : 각종 세팅과 passport 로컬 Strategy구현  
+>   models - settings  
+                > dbConnectionSettings : 데이터베이스 연결 관련 세팅  
+                > sqlDispenser : SQL 쿼리문 모음  
+           - dbPoolCreator : MySQL연결 Pool 리턴  
+           - MemberDao : 회원 관련 DAO 클래스 구현  
+           - PoolDao : 수영장 정보 관련 DAO 클래스 구현  
+>   routes - admin : 관리자 모드에서만 사용가능한 admin경로로 들어오는 모든 요청 처리  
+           - login : 로그인에 사용  
+           - pool : pool경로로 들어오는 모든 요청 처리  
+           - isAuthenticated : 인증된 사용자인지 확인하는 경로  
   
   
   
