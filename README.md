@@ -42,7 +42,7 @@ Node Express Passport Mysql
 app.js : entry point   
 dbSetup_heroku.js : 헤로쿠 데이터베이스 셋업   
 dbSetup.js : 로컬 데이터베이스 셋업   
-&ensp;config : 각종 세팅과 passport 로컬 Strategy구현   
+&emsp;config : 각종 세팅과 passport 로컬 Strategy구현   
     models   
         Settings   
             dbConnectionSettings : 데이터베이스 연결 관련 세팅   
