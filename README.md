@@ -14,7 +14,7 @@ otters는 수달이며 '수'영장에 '달'려간다는 뜻으로 지었습니�
 백엔드는 제가 맡았고,  
 프론트엔드는 danakim21님이 맡았습니다.  
 https://github.com/danakim21  
-본 Readme에서는 백엔드 코드와 관련된 내용만 담겨있습니다.  
+본 Readme에는 백엔드 코드와 관련된 내용만 담겨있습니다.  
   
 백엔드: https://github.com/tachyon83/swimmingPool2  
 프론트엔드: https://github.com/tachyon83/swimmingPool2-front  
