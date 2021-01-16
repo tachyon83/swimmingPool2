@@ -39,18 +39,24 @@ Node Express Passport Mysql
   
 ## 폴더 구조
   
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
+> app.js : entry point
+> dbSetup_heroku.js : 헤로쿠 데이터베이스 셋업
+> dbSetup.js : 로컬 데이터베이스 셋업
+>	> config : 각종 세팅과 passport 로컬 Strategy구현
+>   > models
+>	>	> Settings
+>   >   >   >   dbConnectionSettings : 데이터베이스 연결 관련 세팅
+>   >   >   >   sqlDispenser : SQL 쿼리문 모음
+>   >   >   dbPoolCreator : MySQL연결 Pool 리턴
 
 app.js  
 dbSetup_heroku.js  
 dbSetup.js  
->   config : 각종 세팅과 passport 로컬 Strategy구현  
->   models  >   settings  
->                > dbConnectionSettings : 데이터베이스 연결 관련 세팅  
->                > sqlDispenser : SQL 쿼리문 모음  
->           >   dbPoolCreator : MySQL연결 Pool 리턴  
+>   
+
+>                > 
+>                > 
+>           >   
 >           >   MemberDao : 회원 관련 DAO 클래스 구현  
 >           >   PoolDao : 수영장 정보 관련 DAO 클래스 구현  
 >   routes  >   admin : 관리자 모드에서만 사용가능한 admin경로로 들어오는 모든 요청 처리  
