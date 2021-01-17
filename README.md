@@ -10,6 +10,10 @@
 서버가 수면중이니, 2~3번 시도하시면 접속가능합니다.  
 https://otters-pool.herokuapp.com  
 otters는 수달이며 '수'영장에 '달'려간다는 뜻으로 지었습니다.  
+
+로그인할 수 있는 관리자 계정:   
+아이디: supermanager@pool.com   
+비밀번호: abcd1234   
   
 백엔드는 제가 맡았고,  
 프론트엔드는 danakim21님이 맡았습니다.  
